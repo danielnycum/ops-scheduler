@@ -9,6 +9,10 @@ import { useAppContext } from '../context/AppContext';
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   'https://unpkg.com/pdfjs-dist@5.7.284/build/pdf.worker.min.mjs';
 
+const API_BASE = import.meta.env.PROD
+  ? 'https://ops-scheduler-production.up.railway.app'
+  : 'http://localhost:3001';
+
 async function pdfToText(file) {
   const buffer = await file.arrayBuffer();
   const pdf    = await pdfjsLib.getDocument({ data: buffer }).promise;
@@ -57,7 +61,7 @@ export default function SyllabusModal() {
     try {
       const text = await fileToText(file);
       console.log('[Clarus] Sending to backend, text length:', text.length);
-      const res  = await fetch('http://localhost:3001/api/parse-syllabus', {
+      const res  = await fetch(`${API_BASE}/api/parse-syllabus`, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ text }),
