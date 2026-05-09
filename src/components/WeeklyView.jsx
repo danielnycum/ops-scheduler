@@ -249,7 +249,7 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
               return (
                 <div
                   key={task.id}
-                  className="flex items-center gap-3 px-3 py-2.5"
+                  className="px-3 py-2.5"
                   style={{
                     background: task.completed ? 'rgba(255,255,255,0.01)' : 'rgba(255,255,255,0.04)',
                     borderLeft: `2px solid ${conflicts.has(task.id) ? '#f87171' : task.completed ? 'var(--color-border)' : cat.color}`,
@@ -257,16 +257,20 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
                     opacity: task.completed ? 0.45 : 1,
                   }}
                 >
-                  <span className="text-[11px] font-mono flex-shrink-0" style={{ color: '#64748b' }}>
+                  {/* Title + priority badge */}
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span
+                      className="text-[12px] font-medium truncate"
+                      style={{ color: task.completed ? 'var(--color-subtle)' : '#e2e8f4' }}
+                    >
+                      {task.title}
+                    </span>
+                    <PriorityBadge task={task} />
+                  </div>
+                  {/* Time below */}
+                  <span className="text-[10px] font-mono mt-0.5 block" style={{ color: '#64748b' }}>
                     {task.startTime}
                   </span>
-                  <span
-                    className="text-[12px] font-medium flex-1 truncate"
-                    style={{ color: task.completed ? 'var(--color-subtle)' : '#e2e8f4' }}
-                  >
-                    {task.title}
-                  </span>
-                  <PriorityBadge task={task} catColor={cat.color} />
                 </div>
               );
             })}
@@ -282,39 +286,12 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
   );
 }
 
-function PriorityBadge({ task, catColor }) {
+function PriorityBadge({ task }) {
   const w = parseFloat(task.gradeWeight);
+  const base = { fontSize: 10, fontWeight: 700, flexShrink: 0, padding: '2px 6px', borderRadius: 9999, color: 'white', lineHeight: 1.4 };
 
-  if (w >= 20) return (
-    <span style={{
-      fontSize: 11, fontWeight: 700, flexShrink: 0,
-      padding: '2px 7px', borderRadius: 6,
-      background: 'rgba(239,68,68,0.18)',
-      color: '#f87171',
-      border: '1px solid rgba(239,68,68,0.35)',
-    }}>High</span>
-  );
-  if (w >= 5) return (
-    <span style={{
-      fontSize: 11, fontWeight: 700, flexShrink: 0,
-      padding: '2px 7px', borderRadius: 6,
-      background: 'rgba(251,191,36,0.18)',
-      color: '#fbbf24',
-      border: '1px solid rgba(251,191,36,0.35)',
-    }}>Med</span>
-  );
-  if (w > 0) return (
-    <span style={{
-      fontSize: 11, fontWeight: 700, flexShrink: 0,
-      padding: '2px 7px', borderRadius: 6,
-      background: 'rgba(74,222,128,0.18)',
-      color: '#4ade80',
-      border: '1px solid rgba(74,222,128,0.35)',
-    }}>Low</span>
-  );
-
-  // No grade weight — show category color dot, slightly larger for visibility
-  return (
-    <div style={{ width: 8, height: 8, borderRadius: '50%', background: catColor, flexShrink: 0, opacity: 0.8 }} />
-  );
+  if (w >= 20) return <span style={{ ...base, background: '#ef4444' }}>High</span>;
+  if (w >= 5)  return <span style={{ ...base, background: '#f59e0b' }}>Med</span>;
+  if (w > 0)   return <span style={{ ...base, background: '#22c55e' }}>Low</span>;
+  return null;
 }
