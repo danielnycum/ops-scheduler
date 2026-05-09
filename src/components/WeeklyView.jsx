@@ -44,7 +44,7 @@ export default function WeeklyView() {
   const orderedIndices = Array.from({ length: 7 }, (_, i) => (today + i) % 7);
 
   return (
-    <div className="flex flex-col gap-4 max-w-3xl mx-auto w-full">
+    <div className="flex flex-col gap-4 w-full">
       {/* Summary bar */}
       <div className="flex items-center justify-between">
         <div>
