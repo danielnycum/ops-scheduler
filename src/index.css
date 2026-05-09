@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'DM Mono', 'Fira Code', monospace;
+
+  /* ── Backgrounds ─────────────────────────────── */
+  --color-app:       #0b0f1a;   /* deep warm navy, not pure black */
+  --color-panel:     #0f1523;   /* sidebar / header surface */
+  --color-panel-alt: #141d2e;   /* card / input surface */
+  --color-panel-hi:  #1a2438;   /* hover surface */
+
+  /* ── Borders ─────────────────────────────────── */
+  --color-border:       #1e2d45;
+  --color-border-hi:    #2d4265;
+  --color-border-focus: #6366f1;
+
+  /* ── Text ────────────────────────────────────── */
+  --color-text:     #e2e8f4;
+  --color-muted:    #94a3b8;
+  --color-subtle:   #64748b;
+  --color-disabled: #475569;
+
+  /* ── Indigo accent (premium / warm-cool) ──────── */
+  --color-accent:         #6366f1;
+  --color-accent-dim:     #3730a3;
+  --color-accent-text:    #818cf8;
+  --color-accent-surface: #1e1b4b;
+
+  /* ── AI / Purple ─────────────────────────────── */
+  --color-ai:         #a855f7;
+  --color-ai-dim:     #6b21a8;
+  --color-ai-text:    #c084fc;
+  --color-ai-surface: #2e1065;
+
+  /* ── Status ──────────────────────────────────── */
+  --color-success:         #22c55e;
+  --color-success-text:    #4ade80;
+  --color-success-surface: #052010;
+
+  --color-warn:         #f59e0b;
+  --color-warn-text:    #fbbf24;
+  --color-warn-surface: #1c1002;
+
+  --color-danger:         #ef4444;
+  --color-danger-text:    #f87171;
+  --color-danger-surface: #1c0505;
+}
+
+/* ── Reset ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-feature-settings: 'kern' 1, 'liga' 1; }
+
+body {
+  background-color: var(--color-app);
+  /* Subtle warmth: faint indigo bloom top-left, purple hint bottom-right */
+  background-image:
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(99,102,241,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(168,85,247,0.05) 0%, transparent 55%);
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Scrollbars ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-hi); border-radius: 2px; }
+* { scrollbar-width: thin; scrollbar-color: var(--color-border-hi) transparent; }
+
+/* ── Form focus ──────────────────────────────────────── */
+select option { background: var(--color-panel-alt); color: var(--color-text); }
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--color-accent) !important;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+}
+
+/* ── Animations ──────────────────────────────────────── */
+@keyframes todayPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.4); }
+}
+
+@keyframes conflictPulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
