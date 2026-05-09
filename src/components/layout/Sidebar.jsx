@@ -35,9 +35,12 @@ export function Sidebar({ onClose }) {
 
   return (
     <aside
-      className="w-full h-full flex flex-col flex-shrink-0 overflow-y-auto"
+      className="w-full h-full flex flex-col flex-shrink-0"
       style={{ background: BG }}
     >
+
+      {/* ── Scrollable content ── */}
+      <div style={{ flex: 1, overflowY: 'auto', minHeight: 0 }}>
 
       {/* ── Mobile-only: brand header ── */}
       <div className="md:hidden" style={{ borderBottom: `1px solid ${DIVIDER}` }}>
@@ -165,44 +168,45 @@ export function Sidebar({ onClose }) {
         </div>
       </section>
 
-      <Divider />
+      <div style={{ height: 8 }} />
+      </div>{/* end scrollable */}
 
-      {/* ── DATA ── */}
-      <section style={{ padding: '24px 20px', marginTop: 'auto' }}>
-        <SectionHeader label="DATA" />
-        <div style={{ display: 'flex', gap: 12 }}>
-          <button
-            onClick={exportData}
-            style={{
-              flex: 1, borderRadius: 12, padding: '13px 12px',
-              background: SURFACE, border: '1px solid rgba(255,255,255,0.1)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-              fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer',
-            }}
-          >
-            <Download size={15} />
-            Export
-          </button>
-          <button
-            onClick={() => importRef.current?.click()}
-            style={{
-              flex: 1, borderRadius: 12, padding: '13px 12px',
-              background: SURFACE, border: '1px solid rgba(255,255,255,0.1)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-              fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer',
-            }}
-          >
-            <Upload size={15} />
-            Import
-          </button>
-        </div>
-        <input
-          ref={importRef} type="file" accept=".json" className="hidden"
-          onChange={e => { importData(e.target.files[0]); e.target.value = ''; }}
-        />
-      </section>
-
-      <div style={{ height: 16, flexShrink: 0 }} />
+      {/* ── DATA — pinned footer, always visible ── */}
+      <div style={{ flexShrink: 0, borderTop: `1px solid ${DIVIDER}` }}>
+        <section style={{ padding: '20px' }}>
+          <SectionHeader label="DATA" />
+          <div style={{ display: 'flex', gap: 12 }}>
+            <button
+              onClick={exportData}
+              style={{
+                flex: 1, borderRadius: 12, padding: '13px 12px',
+                background: SURFACE, border: '1px solid rgba(255,255,255,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer',
+              }}
+            >
+              <Download size={15} />
+              Export
+            </button>
+            <button
+              onClick={() => importRef.current?.click()}
+              style={{
+                flex: 1, borderRadius: 12, padding: '13px 12px',
+                background: SURFACE, border: '1px solid rgba(255,255,255,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer',
+              }}
+            >
+              <Upload size={15} />
+              Import
+            </button>
+          </div>
+          <input
+            ref={importRef} type="file" accept=".json" className="hidden"
+            onChange={e => { importData(e.target.files[0]); e.target.value = ''; }}
+          />
+        </section>
+      </div>
     </aside>
   );
 }
@@ -236,7 +240,7 @@ function CourseCard({ course, active, onSelect, onEdit, onDelete, onCalc }) {
     <div
       onClick={onSelect}
       style={{
-        display: 'flex', alignItems: 'center', gap: 12,
+        display: 'flex', alignItems: 'flex-start', gap: 12,
         borderRadius: 12, padding: '12px 16px', minHeight: 60, marginBottom: 10,
         background: active ? 'rgba(99,102,241,0.15)' : SURFACE,
         border: `1px solid ${active ? 'rgba(99,102,241,0.35)' : 'rgba(255,255,255,0.07)'}`,
@@ -244,12 +248,12 @@ function CourseCard({ course, active, onSelect, onEdit, onDelete, onCalc }) {
         cursor: 'pointer',
       }}
     >
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#e2e8f4', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+      <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: '#e2e8f4', lineHeight: 1.3 }}>
           {course.label}
         </div>
         {course.professor && (
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 3, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, lineHeight: 1.4 }}>
             {course.professor}
           </div>
         )}
