@@ -266,7 +266,7 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
                   >
                     {task.title}
                   </span>
-                  <div className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: cat.color }} />
+                  <PriorityBadge task={task} catColor={cat.color} />
                 </div>
               );
             })}
@@ -279,5 +279,42 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
         )}
       </div>
     </motion.div>
+  );
+}
+
+function PriorityBadge({ task, catColor }) {
+  const w = parseFloat(task.gradeWeight);
+
+  if (w >= 20) return (
+    <span style={{
+      fontSize: 11, fontWeight: 700, flexShrink: 0,
+      padding: '2px 7px', borderRadius: 6,
+      background: 'rgba(239,68,68,0.18)',
+      color: '#f87171',
+      border: '1px solid rgba(239,68,68,0.35)',
+    }}>High</span>
+  );
+  if (w >= 5) return (
+    <span style={{
+      fontSize: 11, fontWeight: 700, flexShrink: 0,
+      padding: '2px 7px', borderRadius: 6,
+      background: 'rgba(251,191,36,0.18)',
+      color: '#fbbf24',
+      border: '1px solid rgba(251,191,36,0.35)',
+    }}>Med</span>
+  );
+  if (w > 0) return (
+    <span style={{
+      fontSize: 11, fontWeight: 700, flexShrink: 0,
+      padding: '2px 7px', borderRadius: 6,
+      background: 'rgba(74,222,128,0.18)',
+      color: '#4ade80',
+      border: '1px solid rgba(74,222,128,0.35)',
+    }}>Low</span>
+  );
+
+  // No grade weight — show category color dot, slightly larger for visibility
+  return (
+    <div style={{ width: 8, height: 8, borderRadius: '50%', background: catColor, flexShrink: 0, opacity: 0.8 }} />
   );
 }
