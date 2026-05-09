@@ -85,30 +85,17 @@ export default function OnboardingOverlay() {
 
       {/* Steps */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 w-full max-w-2xl mb-7 md:mb-10">
-        {STEPS.map((step, i) => (
-          <motion.div
-            key={step.n}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.18 + i * 0.1, ease: [0.4, 0, 0.2, 1] }}
-          >
+        {STEPS.map((step) => (
+          <div key={step.n}>
             <StepCard step={step} />
-          </motion.div>
+          </div>
         ))}
       </div>
 
       {/* CTAs */}
-      <motion.div
-        className="flex flex-col items-center gap-3"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, delay: 0.52 }}
-      >
-        <motion.button
+      <div className="flex flex-col items-center gap-3">
+        <button
           onClick={() => setModal('syllabus')}
-          whileHover={{ scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 22 }}
           className="flex items-center gap-2.5 px-8 py-3.5 rounded-xl text-[14px] font-semibold text-white select-none cursor-pointer"
           style={{
             background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
@@ -117,7 +104,7 @@ export default function OnboardingOverlay() {
         >
           <FileUp size={16} strokeWidth={2.2} />
           Upload Your Syllabus
-        </motion.button>
+        </button>
 
         <div className="flex items-center gap-3 text-[11px]" style={{ color: 'var(--color-disabled)' }}>
           <span className="w-12 h-px" style={{ background: 'var(--color-border)' }} />
@@ -147,7 +134,7 @@ export default function OnboardingOverlay() {
           <Plus size={14} strokeWidth={2.2} />
           Add Course Manually
         </button>
-      </motion.div>
+      </div>
     </div>
   );
 }
