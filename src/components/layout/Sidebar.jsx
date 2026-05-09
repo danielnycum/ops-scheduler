@@ -29,7 +29,7 @@ export function Sidebar({ onClose }) {
 
   return (
     <aside
-      className="w-[85vw] md:w-56 h-full flex flex-col flex-shrink-0 overflow-y-auto border-r border-border"
+      className="w-full md:w-56 h-full flex flex-col flex-shrink-0 overflow-y-auto border-r border-border"
       style={{
         background: 'linear-gradient(160deg, #131c30 0%, #0e1525 50%, #0b1019 100%)',
       }}

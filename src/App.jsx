@@ -85,6 +85,7 @@ export default function App() {
             'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
             mobileNavOpen ? 'translate-x-0' : '-translate-x-full',
           ].join(' ')}
+          style={isMobile ? { width: '85vw' } : undefined}
         >
           <Sidebar onClose={() => setMobileNavOpen(false)} />
         </div>
