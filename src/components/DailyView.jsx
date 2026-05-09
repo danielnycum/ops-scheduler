@@ -40,7 +40,7 @@ export default function DailyView() {
         Week view
       </button>
 
-      {/* Mobile day picker — horizontal scrollable pill row with date numbers */}
+      {/* Mobile day picker */}
       <div className="flex md:hidden overflow-x-auto gap-1 mb-4 pb-0.5 scrollbar-none">
         {DAYS.map((day, i) => {
           const isActive = i === selectedDay;
@@ -51,26 +51,24 @@ export default function DailyView() {
               onClick={() => setSelectedDay(i)}
               className="flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-150 min-w-[3rem]"
               style={{
-                background: isActive
-                  ? 'rgba(99,102,241,0.2)'
-                  : 'rgba(255,255,255,0.04)',
+                background: isActive ? 'rgba(20,184,166,0.15)' : 'var(--surface-1)',
                 border: isActive
-                  ? '1px solid rgba(99,102,241,0.4)'
-                  : '1px solid rgba(255,255,255,0.08)',
-                color: isActive ? '#818cf8' : '#64748b',
+                  ? '1px solid rgba(20,184,166,0.4)'
+                  : '1px solid var(--border-subtle)',
+                color: isActive ? 'var(--teal)' : 'var(--color-subtle)',
               }}
             >
               <span className="text-[9px] font-bold uppercase tracking-[0.08em]">{SHORT_DAYS[i]}</span>
               <span
                 className="text-[15px] font-bold leading-tight"
-                style={{ color: isActive ? '#818cf8' : isToday ? 'var(--color-text)' : 'var(--color-muted)' }}
+                style={{ color: isActive ? 'var(--teal)' : isToday ? 'var(--color-text)' : 'var(--color-muted)' }}
               >
                 {weekDates[i]}
               </span>
               {isToday && (
                 <span
                   className="w-1 h-1 rounded-full mt-0.5"
-                  style={{ background: '#818cf8' }}
+                  style={{ background: 'var(--teal)' }}
                 />
               )}
             </button>
@@ -78,7 +76,7 @@ export default function DailyView() {
         })}
       </div>
 
-      {/* Day nav — desktop arrows + centered title; mobile: just centered title */}
+      {/* Day nav */}
       <div className="flex items-center justify-between mb-5">
         <button
           onClick={() => setSelectedDay(d => Math.max(0, d - 1))}
@@ -88,8 +86,8 @@ export default function DailyView() {
         </button>
 
         <div className="text-center flex-1 md:flex-none">
-          <h2 className="text-[18px] font-bold tracking-tight" style={{ color: '#e2e8f4' }}>{DAYS[selectedDay]}</h2>
-          <div className="text-[11px] mt-0.5 font-mono" style={{ color: '#64748b' }}>
+          <h2 className="text-[18px] font-bold tracking-tight text-text">{DAYS[selectedDay]}</h2>
+          <div className="text-[11px] mt-0.5 font-mono text-subtle">
             {list.length} task{list.length !== 1 ? 's' : ''}
             {filter !== 'all' && activeCat ? ` · ${activeCat.label}` : ''}
           </div>
@@ -177,11 +175,11 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
         onClick={onEdit}
         style={{
           background: task.completed
-            ? 'rgba(255,255,255,0.02)'
+            ? 'var(--surface-3)'
             : conflict
             ? 'rgba(239,68,68,0.06)'
-            : 'rgba(255,255,255,0.05)',
-          border: `1px solid ${conflict ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.08)'}`,
+            : 'var(--surface-1)',
+          border: `1px solid ${conflict ? 'rgba(239,68,68,0.2)' : 'var(--border-subtle)'}`,
           borderLeft: `3px solid ${borderLeft}`,
           opacity: task.completed ? 0.5 : 1,
         }}
@@ -214,7 +212,6 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
 
           {/* Content */}
           <div className="flex-1 min-w-0">
-            {/* Title with animated strikethrough */}
             <div className="relative inline-block max-w-full">
               <span
                 className="text-[13px] font-semibold leading-tight block truncate"
@@ -233,7 +230,6 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
               )}
             </div>
 
-            {/* Meta row */}
             <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
               <span className="text-[11px] font-mono text-subtle">
                 {task.startTime} – {task.endTime}
@@ -341,7 +337,7 @@ function EmptyState({ day, filterActive, activeCat, onAdd }) {
 
 function getWeekDates() {
   const now     = new Date();
-  const js      = now.getDay(); // 0 = Sun
+  const js      = now.getDay();
   const monday  = new Date(now);
   monday.setDate(now.getDate() - (js === 0 ? 6 : js - 1));
   return Array.from({ length: 7 }, (_, i) => {

@@ -112,8 +112,8 @@ export default function App() {
                       layoutId="viewToggleActive"
                       className="absolute inset-0 rounded-lg"
                       style={{
-                        background: 'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(99,102,241,0.1) 100%)',
-                        border: '1px solid rgba(99,102,241,0.3)',
+                        background: 'linear-gradient(135deg, rgba(20,184,166,0.2) 0%, rgba(20,184,166,0.1) 100%)',
+                        border: '1px solid rgba(20,184,166,0.3)',
                       }}
                       transition={{ type: 'spring', stiffness: 350, damping: 35 }}
                     />
@@ -148,17 +148,15 @@ export default function App() {
                 whileTap={{ scale: 0.97 }}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold text-white select-none cursor-pointer"
                 style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #5558eb 100%)',
-                  boxShadow: '0 0 0 1px rgba(99,102,241,0.5), 0 4px 14px rgba(99,102,241,0.3)',
+                  background: 'linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%)',
+                  boxShadow: '0 0 0 1px var(--teal-border), 0 4px 14px var(--teal-glow)',
                   transition: 'box-shadow 0.15s, background 0.15s',
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(99,102,241,0.7), 0 6px 20px rgba(99,102,241,0.45)';
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #6a6ef5 0%, #6366f1 100%)';
+                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(20,184,166,0.7), 0 6px 20px rgba(20,184,166,0.45)';
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(99,102,241,0.5), 0 4px 14px rgba(99,102,241,0.3)';
-                  e.currentTarget.style.background = 'linear-gradient(135deg, #6366f1 0%, #5558eb 100%)';
+                  e.currentTarget.style.boxShadow = '0 0 0 1px var(--teal-border), 0 4px 14px var(--teal-glow)';
                 }}
               >
                 <Plus size={15} strokeWidth={2.5} />

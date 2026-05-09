@@ -40,7 +40,6 @@ export default function WeeklyView() {
     tasks.reduce((sum, t) => sum + (toMin(t.endTime) - toMin(t.startTime)), 0) / 60 * 10
   ) / 10;
 
-  // Today first, then the following days in order
   const orderedIndices = Array.from({ length: 7 }, (_, i) => (today + i) % 7);
 
   return (
@@ -108,14 +107,6 @@ export default function WeeklyView() {
 function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasConflict, conflicts, loadPct, loadColor, getCat, onDayClick, onAddTask }) {
   const [hovered, setHovered] = useState(false);
 
-  const borderColor = hasConflict
-    ? 'rgba(239,68,68,0.5)'
-    : isToday
-    ? 'rgba(99,102,241,0.5)'
-    : hovered
-    ? 'var(--color-border-hi)'
-    : 'var(--color-border)';
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
@@ -123,20 +114,18 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
       transition={{ duration: 0.22, delay: position * 0.04, ease: [0.4, 0, 0.2, 1] }}
       className="rounded-xl overflow-hidden"
       style={{
-        background: isToday
-          ? 'rgba(99,102,241,0.12)'
-          : 'rgba(255,255,255,0.04)',
+        background: isToday ? 'rgba(20,184,166,0.08)' : 'var(--surface-1)',
         border: isToday
-          ? '1px solid rgba(99,102,241,0.35)'
-          : `1px solid ${hasConflict ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)'}`,
-        boxShadow: '0 2px 12px rgba(0,0,0,0.3)',
+          ? '1px solid rgba(20,184,166,0.35)'
+          : `1px solid ${hasConflict ? 'rgba(239,68,68,0.5)' : 'var(--border-subtle)'}`,
+        boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
         transition: 'border-color 0.15s, box-shadow 0.15s',
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Load bar */}
-      <div className="h-0.5 w-full" style={{ background: 'rgba(255,255,255,0.06)' }}>
+      <div className="h-0.5 w-full" style={{ background: 'var(--surface-2)' }}>
         <motion.div
           className="h-full rounded-full"
           style={{ background: loadColor, opacity: 0.8 }}
@@ -149,12 +138,12 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
       <div
         className="flex items-center justify-between px-4 py-3 cursor-pointer select-none"
         style={{
-          borderBottom: `1px solid ${isToday ? 'rgba(99,102,241,0.15)' : 'var(--color-border)'}`,
-          background: isToday ? 'rgba(99,102,241,0.06)' : 'rgba(255,255,255,0.01)',
+          borderBottom: `1px solid ${isToday ? 'rgba(20,184,166,0.15)' : 'var(--border-subtle)'}`,
+          background: isToday ? 'rgba(20,184,166,0.04)' : 'var(--surface-3)',
         }}
         onClick={() => onDayClick(dayIdx)}
       >
-        {/* Left: purple accent bar (today only) + pulse dot + date + name */}
+        {/* Left: accent bar + pulse dot + date + name */}
         <div className="flex items-center gap-2.5">
           {isToday && (
             <div
@@ -162,8 +151,8 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
               style={{
                 width: '3px',
                 height: '20px',
-                background: '#818cf8',
-                boxShadow: '0 0 10px #818cf8',
+                background: 'var(--teal)',
+                boxShadow: '0 0 10px var(--teal-glow)',
               }}
             />
           )}
@@ -171,27 +160,24 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
             <div
               className="w-2 h-2 rounded-full flex-shrink-0"
               style={{
-                background: 'var(--color-accent)',
+                background: 'var(--teal)',
                 animation: 'todayPulse 2s ease-in-out infinite',
-                boxShadow: '0 0 6px rgba(99,102,241,0.6)',
+                boxShadow: '0 0 6px rgba(20,184,166,0.6)',
               }}
             />
           )}
-          <span
-            className="text-[24px] font-bold leading-none"
-            style={{ color: '#e2e8f4' }}
-          >
+          <span className="text-[24px] font-bold leading-none text-text">
             {dateNum}
           </span>
           <div className="flex flex-col leading-tight">
             <span
               className="text-[13px] font-semibold"
-              style={{ color: isToday ? 'var(--color-accent-text)' : '#94a3b8' }}
+              style={{ color: isToday ? 'var(--teal-light)' : 'var(--color-muted)' }}
             >
               {isToday ? 'Today' : day}
             </span>
             {!isToday && (
-              <span className="text-[10px] font-bold uppercase tracking-[0.12em]" style={{ color: 'var(--color-subtle)' }}>
+              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-subtle">
                 {shortDay}
               </span>
             )}
@@ -201,7 +187,7 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
         {/* Right: task count + conflict + add */}
         <div className="flex items-center gap-2" onClick={e => e.stopPropagation()}>
           {list.length > 0 && (
-            <span className="text-[11px]" style={{ color: isToday ? 'var(--color-accent-text)' : 'var(--color-subtle)' }}>
+            <span className="text-[11px]" style={{ color: isToday ? 'var(--teal-light)' : 'var(--color-subtle)' }}>
               {list.length} task{list.length !== 1 ? 's' : ''}
             </span>
           )}
@@ -213,18 +199,18 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
             className="flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] font-medium border transition-all duration-150"
             style={{
               color: 'var(--color-subtle)',
-              borderColor: 'var(--color-border)',
-              background: 'rgba(255,255,255,0.02)',
+              borderColor: 'var(--border-subtle)',
+              background: 'var(--surface-3)',
             }}
             onMouseEnter={e => {
-              e.currentTarget.style.color = 'var(--color-accent-text)';
-              e.currentTarget.style.borderColor = 'rgba(99,102,241,0.4)';
-              e.currentTarget.style.background = 'rgba(99,102,241,0.08)';
+              e.currentTarget.style.color = 'var(--teal-light)';
+              e.currentTarget.style.borderColor = 'var(--teal-border)';
+              e.currentTarget.style.background = 'var(--teal-dim-bg)';
             }}
             onMouseLeave={e => {
               e.currentTarget.style.color = 'var(--color-subtle)';
-              e.currentTarget.style.borderColor = 'var(--color-border)';
-              e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+              e.currentTarget.style.borderColor = 'var(--border-subtle)';
+              e.currentTarget.style.background = 'var(--surface-3)';
             }}
           >
             <Plus size={11} />
@@ -239,7 +225,7 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
         onClick={() => onDayClick(dayIdx)}
       >
         {list.length === 0 ? (
-          <div className="text-[11px] px-1 select-none" style={{ color: 'var(--color-disabled)' }}>
+          <div className="text-[11px] px-1 select-none text-disabled">
             Free day
           </div>
         ) : (
@@ -251,31 +237,29 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
                   key={task.id}
                   className="px-3 py-2.5"
                   style={{
-                    background: task.completed ? 'rgba(255,255,255,0.01)' : 'rgba(255,255,255,0.04)',
+                    background: task.completed ? 'var(--surface-3)' : 'var(--surface-1)',
                     borderLeft: `2px solid ${conflicts.has(task.id) ? '#f87171' : task.completed ? 'var(--color-border)' : cat.color}`,
                     borderRadius: '8px',
                     opacity: task.completed ? 0.45 : 1,
                   }}
                 >
-                  {/* Title + priority badge */}
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span
                       className="text-[12px] font-medium truncate"
-                      style={{ color: task.completed ? 'var(--color-subtle)' : '#e2e8f4' }}
+                      style={{ color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)' }}
                     >
                       {task.title}
                     </span>
                     <PriorityBadge task={task} />
                   </div>
-                  {/* Time below */}
-                  <span className="text-[10px] font-mono mt-0.5 block" style={{ color: '#64748b' }}>
+                  <span className="text-[10px] font-mono mt-0.5 block text-subtle">
                     {task.startTime}
                   </span>
                 </div>
               );
             })}
             {list.length > 4 && (
-              <div className="text-[11px] px-3 pt-1" style={{ color: 'var(--color-disabled)' }}>
+              <div className="text-[11px] px-3 pt-1 text-disabled">
                 +{list.length - 4} more
               </div>
             )}

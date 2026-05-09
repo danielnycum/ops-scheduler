@@ -27,9 +27,9 @@ export function Modal({ onClose, title, width = 440, children }) {
                    md:w-[var(--modal-w)] md:max-w-[94vw]"
         style={{
           '--modal-w': `${width}px`,
-          background: 'linear-gradient(160deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)',
-          border: '1px solid rgba(255,255,255,0.1)',
-          boxShadow: '0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(99,102,241,0.1)',
+          background: 'var(--gradient-modal)',
+          border: '1px solid var(--border-subtle)',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--teal-surface)',
         }}
         initial={{ scale: 0.97, opacity: 0, y: 20 }}
         animate={{ scale: 1,    opacity: 1, y: 0  }}
@@ -39,14 +39,13 @@ export function Modal({ onClose, title, width = 440, children }) {
         {/* Header */}
         <div
           className="flex items-center justify-between px-5 md:px-6 pt-5 pb-4 flex-shrink-0"
-          style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
+          style={{ borderBottom: '1px solid var(--border-subtle)' }}
         >
-          <h2 className="text-[15px] font-semibold" style={{ color: '#e2e8f4' }}>{title}</h2>
+          <h2 className="text-[15px] font-semibold text-text">{title}</h2>
           <button
             onClick={onClose}
             className="w-7 h-7 flex items-center justify-center rounded-md text-subtle hover:text-text transition-colors duration-150"
-            style={{ '--hover-bg': 'rgba(255,255,255,0.06)' }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--surface-1)'; }}
             onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
           >
             <X size={15} />

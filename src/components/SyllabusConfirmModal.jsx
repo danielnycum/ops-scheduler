@@ -49,9 +49,9 @@ export default function SyllabusConfirmModal() {
                 <span
                   className="text-[10px] font-bold px-1.5 py-0.5 rounded flex-shrink-0 font-mono"
                   style={{
-                    color: 'var(--color-accent-text)',
-                    background: 'rgba(99,102,241,0.12)',
-                    border: '1px solid rgba(99,102,241,0.2)',
+                    color: 'var(--teal-light)',
+                    background: 'var(--teal-surface)',
+                    border: '1px solid var(--teal-border)',
                   }}
                 >
                   {item.gradeWeight}%

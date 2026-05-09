@@ -6,33 +6,33 @@
   --font-mono: 'JetBrains Mono', 'DM Mono', 'Fira Code', monospace;
 
   /* ── Backgrounds ─────────────────────────────── */
-  --color-app:       #0b0f1a;   /* deep warm navy, not pure black */
-  --color-panel:     #0f1523;   /* sidebar / header surface */
-  --color-panel-alt: #141d2e;   /* card / input surface */
-  --color-panel-hi:  #1a2438;   /* hover surface */
+  --color-app:       #0a0f1a;
+  --color-panel:     #111827;
+  --color-panel-alt: #1f2937;
+  --color-panel-hi:  #374151;
 
   /* ── Borders ─────────────────────────────────── */
-  --color-border:       #1e2d45;
-  --color-border-hi:    #2d4265;
-  --color-border-focus: #6366f1;
+  --color-border:       #1a2f2e;
+  --color-border-hi:    #2a4f4e;
+  --color-border-focus: #14b8a6;
 
   /* ── Text ────────────────────────────────────── */
-  --color-text:     #e2e8f4;
-  --color-muted:    #94a3b8;
+  --color-text:     #f9fafb;
+  --color-muted:    #9ca3af;
   --color-subtle:   #64748b;
   --color-disabled: #475569;
 
-  /* ── Indigo accent (premium / warm-cool) ──────── */
-  --color-accent:         #6366f1;
-  --color-accent-dim:     #3730a3;
-  --color-accent-text:    #818cf8;
-  --color-accent-surface: #1e1b4b;
+  /* ── Teal accent ──────────────────────────────── */
+  --color-accent:         #14b8a6;
+  --color-accent-dim:     #0d9488;
+  --color-accent-text:    #5eead4;
+  --color-accent-surface: #042f2e;
 
-  /* ── AI / Purple ─────────────────────────────── */
-  --color-ai:         #a855f7;
-  --color-ai-dim:     #6b21a8;
-  --color-ai-text:    #c084fc;
-  --color-ai-surface: #2e1065;
+  /* ── AI / Teal (replaces purple) ─────────────── */
+  --color-ai:         #14b8a6;
+  --color-ai-dim:     #0d9488;
+  --color-ai-text:    #5eead4;
+  --color-ai-surface: #042f2e;
 
   /* ── Status ──────────────────────────────────── */
   --color-success:         #22c55e;
@@ -48,16 +48,97 @@
   --color-danger-surface: #1c0505;
 }
 
+/* ── Surface & gradient variables ─────────────────────── */
+:root {
+  --surface-1:     rgba(255,255,255,0.05);
+  --surface-2:     rgba(255,255,255,0.08);
+  --surface-3:     rgba(255,255,255,0.02);
+  --border-subtle: rgba(255,255,255,0.08);
+  --border-medium: rgba(255,255,255,0.12);
+
+  --teal:         #14b8a6;
+  --teal-light:   #5eead4;
+  --teal-dark:    #0d9488;
+  --teal-deeper:  #0f766e;
+  --teal-surface: rgba(20,184,166,0.12);
+  --teal-border:  rgba(20,184,166,0.4);
+  --teal-glow:    rgba(20,184,166,0.3);
+  --teal-dim-bg:  rgba(20,184,166,0.08);
+
+  --gradient-sidebar:    linear-gradient(180deg, #0a0f1a 0%, #0d1a19 60%, #071312 100%);
+  --gradient-header:     linear-gradient(160deg, #0a0f1a 0%, #0d1a19 100%);
+  --gradient-modal:      linear-gradient(160deg, #0a0f1a 0%, #111827 60%, #071312 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #0a0f1a 0%, #0d1a19 60%, #071312 100%);
+  --gradient-onboarding: linear-gradient(180deg, #0a0f1a 0%, #0d1a19 60%, #071312 100%);
+}
+
+/* ── Light mode ───────────────────────────────────────── */
+body.light {
+  --color-app:       #f0fdfa;
+  --color-panel:     #ffffff;
+  --color-panel-alt: #f1f5f9;
+  --color-panel-hi:  #e2e8f0;
+
+  --color-border:       #e0f2f1;
+  --color-border-hi:    #b2dfdb;
+  --color-border-focus: #0d9488;
+
+  --color-text:     #0f172a;
+  --color-muted:    #334155;
+  --color-subtle:   #64748b;
+  --color-disabled: #94a3b8;
+
+  --color-accent:         #0d9488;
+  --color-accent-dim:     #0f766e;
+  --color-accent-text:    #0d9488;
+  --color-accent-surface: #ccfbf1;
+
+  --color-ai:         #0d9488;
+  --color-ai-dim:     #0f766e;
+  --color-ai-text:    #0d9488;
+  --color-ai-surface: #ccfbf1;
+
+  --color-success-surface: #f0fdf4;
+  --color-warn-surface:    #fffbeb;
+  --color-danger-surface:  #fef2f2;
+  --color-danger-text:     #dc2626;
+
+  --surface-1:     rgba(0,0,0,0.04);
+  --surface-2:     rgba(0,0,0,0.07);
+  --surface-3:     rgba(0,0,0,0.02);
+  --border-subtle: rgba(0,0,0,0.08);
+  --border-medium: rgba(0,0,0,0.12);
+
+  --teal:         #0d9488;
+  --teal-light:   #14b8a6;
+  --teal-dark:    #0f766e;
+  --teal-deeper:  #115e59;
+  --teal-surface: rgba(13,148,136,0.08);
+  --teal-border:  rgba(13,148,136,0.3);
+  --teal-glow:    rgba(13,148,136,0.2);
+  --teal-dim-bg:  rgba(13,148,136,0.06);
+
+  --gradient-sidebar:    linear-gradient(180deg, #f0fdfa 0%, #ccfbf1 100%);
+  --gradient-header:     linear-gradient(160deg, #f0fdfa 0%, #e0fdf4 100%);
+  --gradient-modal:      linear-gradient(160deg, #ffffff 0%, #f0fdfa 60%, #ccfbf1 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #f0fdfa 0%, #ccfbf1 100%);
+  --gradient-onboarding: linear-gradient(180deg, #f0fdfa 0%, #ccfbf1 100%);
+
+  background-color: var(--color-app);
+  background-image:
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(20,184,166,0.07) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(13,148,136,0.05) 0%, transparent 55%);
+}
+
 /* ── Reset ───────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-feature-settings: 'kern' 1, 'liga' 1; }
 
 body {
   background-color: var(--color-app);
-  /* Subtle warmth: faint indigo bloom top-left, purple hint bottom-right */
   background-image:
-    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(99,102,241,0.09) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(168,85,247,0.05) 0%, transparent 55%);
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(20,184,166,0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(13,148,136,0.05) 0%, transparent 55%);
   background-attachment: fixed;
   color: var(--color-text);
   font-family: var(--font-sans);
@@ -77,7 +158,11 @@ select option { background: var(--color-panel-alt); color: var(--color-text); }
 input:focus, select:focus, textarea:focus {
   outline: none;
   border-color: var(--color-accent) !important;
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
+  box-shadow: 0 0 0 3px rgba(20,184,166,0.2) !important;
+}
+
+body.light input:focus, body.light select:focus, body.light textarea:focus {
+  box-shadow: 0 0 0 3px rgba(13,148,136,0.15) !important;
 }
 
 /* ── Animations ──────────────────────────────────────── */

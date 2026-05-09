@@ -15,12 +15,12 @@ function getCatIcon(cat) {
   return CAT_ICONS[cat.id] || Tag;
 }
 
-const BG = 'linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)';
-const SURFACE   = 'rgba(255,255,255,0.05)';
-const DIVIDER   = 'rgba(255,255,255,0.07)';
-const PURPLE    = '#818cf8';
-const PURPLE_BG = 'rgba(99,102,241,0.2)';
-const PURPLE_BD = 'rgba(99,102,241,0.4)';
+const BG        = 'var(--gradient-sidebar)';
+const SURFACE   = 'var(--surface-1)';
+const DIVIDER   = 'var(--border-subtle)';
+const TEAL      = 'var(--teal)';
+const TEAL_BG   = 'var(--teal-dim-bg)';
+const TEAL_BD   = 'var(--teal-border)';
 
 export function Sidebar({ onClose }) {
   const {
@@ -48,15 +48,15 @@ export function Sidebar({ onClose }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <div style={{
               width: 44, height: 44, borderRadius: 14, flexShrink: 0,
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-              boxShadow: '0 4px 16px rgba(99,102,241,0.5)',
+              background: 'linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%)',
+              boxShadow: '0 4px 16px var(--teal-glow)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <CalendarDays size={20} color="white" strokeWidth={2} />
             </div>
             <div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: '#e8edf5', lineHeight: 1.1 }}>Clarus</div>
-              <div style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>Study smarter. Not harder.</div>
+              <div style={{ fontSize: 22, fontWeight: 800, color: 'var(--color-text)', lineHeight: 1.1 }}>Clarus</div>
+              <div style={{ fontSize: 11, color: 'var(--color-subtle)', marginTop: 2 }}>Study smarter. Not harder.</div>
             </div>
           </div>
           <button
@@ -64,13 +64,13 @@ export function Sidebar({ onClose }) {
             aria-label="Close menu"
             style={{
               width: 48, height: 48, borderRadius: 14, flexShrink: 0,
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'var(--surface-1)',
+              border: '1px solid var(--border-subtle)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               cursor: 'pointer',
             }}
           >
-            <X size={22} color="#94a3b8" />
+            <X size={22} color="var(--color-subtle)" />
           </button>
         </div>
 
@@ -81,9 +81,9 @@ export function Sidebar({ onClose }) {
             style={{
               width: '100%', borderRadius: 14, padding: '14px 20px',
               background: aiOpen
-                ? 'linear-gradient(135deg, #7c3aed 0%, #9333ea 100%)'
-                : 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
-              boxShadow: '0 4px 20px rgba(99,102,241,0.4)',
+                ? 'linear-gradient(135deg, var(--teal-deeper) 0%, var(--teal-dark) 100%)'
+                : 'linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%)',
+              boxShadow: '0 4px 20px var(--teal-glow)',
               border: 'none', cursor: 'pointer',
               display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
               fontSize: 15, fontWeight: 700, color: 'white',
@@ -100,7 +100,7 @@ export function Sidebar({ onClose }) {
         <SectionHeader label="COURSES" />
 
         {courses.length === 0 && (
-          <p style={{ fontSize: 13, color: '#475569', fontStyle: 'italic', marginBottom: 12 }}>No courses yet</p>
+          <p style={{ fontSize: 13, color: 'var(--color-subtle)', fontStyle: 'italic', marginBottom: 12 }}>No courses yet</p>
         )}
 
         {courses.map(course => (
@@ -126,7 +126,7 @@ export function Sidebar({ onClose }) {
         <SectionHeader label="CATEGORIES" />
 
         <CategoryPill
-          id="all" label="All Tasks" color={PURPLE} Icon={Layers}
+          id="all" label="All Tasks" color={TEAL} Icon={Layers}
           active={filter === 'all'}
           onSelect={() => { setFilter('all'); onClose?.(); }}
         />
@@ -151,17 +151,17 @@ export function Sidebar({ onClose }) {
       {/* ── PROGRESS ── */}
       <section style={{ padding: '24px 20px 8px' }}>
         <SectionHeader label="PROGRESS" />
-        <div style={{ borderRadius: 12, background: SURFACE, padding: '16px 18px', marginBottom: 16 }}>
+        <div style={{ borderRadius: 12, background: SURFACE, border: '1px solid var(--border-subtle)', padding: '16px 18px', marginBottom: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontSize: 13, color: '#94a3b8' }}>This week</span>
-            <span style={{ fontSize: 14, fontWeight: 700, color: '#e2e8f4', fontFamily: 'monospace' }}>{done}/{total}</span>
+            <span style={{ fontSize: 13, color: 'var(--color-muted)' }}>This week</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-text)', fontFamily: 'monospace' }}>{done}/{total}</span>
           </div>
           <ProgressBar pct={pct} />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
-            <span style={{ fontSize: 12, color: '#64748b' }}>
+            <span style={{ fontSize: 12, color: 'var(--color-subtle)' }}>
               {total === 0 ? 'No tasks yet' : `${total - done} remaining`}
             </span>
-            <span style={{ fontSize: 13, fontWeight: 700, fontFamily: 'monospace', color: pct === 100 ? '#4ade80' : PURPLE }}>
+            <span style={{ fontSize: 13, fontWeight: 700, fontFamily: 'monospace', color: pct === 100 ? 'var(--color-success-text)' : TEAL }}>
               {pct}%
             </span>
           </div>
@@ -171,7 +171,7 @@ export function Sidebar({ onClose }) {
       <div style={{ height: 8 }} />
       </div>{/* end scrollable */}
 
-      {/* ── DATA — pinned footer, always visible ── */}
+      {/* ── DATA — pinned footer ── */}
       <div style={{ flexShrink: 0, borderTop: `1px solid ${DIVIDER}` }}>
         <section style={{ padding: '20px' }}>
           <SectionHeader label="DATA" />
@@ -180,9 +180,9 @@ export function Sidebar({ onClose }) {
               onClick={exportData}
               style={{
                 flex: 1, borderRadius: 12, padding: '13px 12px',
-                background: SURFACE, border: '1px solid rgba(255,255,255,0.1)',
+                background: SURFACE, border: '1px solid var(--border-subtle)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer',
+                fontSize: 13, fontWeight: 600, color: 'var(--color-muted)', cursor: 'pointer',
               }}
             >
               <Download size={15} />
@@ -192,9 +192,9 @@ export function Sidebar({ onClose }) {
               onClick={() => importRef.current?.click()}
               style={{
                 flex: 1, borderRadius: 12, padding: '13px 12px',
-                background: SURFACE, border: '1px solid rgba(255,255,255,0.1)',
+                background: SURFACE, border: '1px solid var(--border-subtle)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                fontSize: 13, fontWeight: 600, color: '#94a3b8', cursor: 'pointer',
+                fontSize: 13, fontWeight: 600, color: 'var(--color-muted)', cursor: 'pointer',
               }}
             >
               <Upload size={15} />
@@ -217,10 +217,10 @@ function SectionHeader({ label }) {
     <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
       <div style={{
         width: 3, height: 16, borderRadius: 2, flexShrink: 0,
-        background: PURPLE,
-        boxShadow: `0 0 10px ${PURPLE}, 0 0 4px ${PURPLE}`,
+        background: TEAL,
+        boxShadow: '0 0 10px var(--teal-glow)',
       }} />
-      <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: PURPLE }}>
+      <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: TEAL }}>
         {label}
       </span>
     </div>
@@ -242,18 +242,18 @@ function CourseCard({ course, active, onSelect, onEdit, onDelete, onCalc }) {
       style={{
         display: 'flex', alignItems: 'flex-start', gap: 12,
         borderRadius: 12, padding: '12px 16px', minHeight: 60, marginBottom: 10,
-        background: active ? 'rgba(99,102,241,0.15)' : SURFACE,
-        border: `1px solid ${active ? 'rgba(99,102,241,0.35)' : 'rgba(255,255,255,0.07)'}`,
+        background: active ? 'var(--teal-surface)' : SURFACE,
+        border: `1px solid ${active ? 'var(--teal-border)' : 'var(--border-subtle)'}`,
         borderLeft: `4px solid ${course.color}`,
         cursor: 'pointer',
       }}
     >
       <div style={{ flex: 1 }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: '#e2e8f4', lineHeight: 1.3 }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text)', lineHeight: 1.3 }}>
           {course.label}
         </div>
         {course.professor && (
-          <div style={{ fontSize: 12, color: '#64748b', marginTop: 4, lineHeight: 1.4 }}>
+          <div style={{ fontSize: 12, color: 'var(--color-subtle)', marginTop: 4, lineHeight: 1.4 }}>
             {course.professor}
           </div>
         )}
@@ -268,24 +268,24 @@ function CourseCard({ course, active, onSelect, onEdit, onDelete, onCalc }) {
   );
 }
 
-/* ─── Action button (Add Course / Upload Syllabus / Add Category) ── */
+/* ─── Action button ── */
 function ActionButton({ Icon, label, onClick }) {
   return (
     <button
       onClick={onClick}
       style={{
         width: '100%', borderRadius: 12, padding: '12px 16px', marginBottom: 10,
-        background: PURPLE_BG, border: `1px solid ${PURPLE_BD}`,
+        background: TEAL_BG, border: `1px solid ${TEAL_BD}`,
         display: 'flex', alignItems: 'center', gap: 12,
-        fontSize: 14, fontWeight: 600, color: PURPLE, cursor: 'pointer',
+        fontSize: 14, fontWeight: 600, color: TEAL, cursor: 'pointer',
       }}
     >
       <div style={{
         width: 30, height: 30, borderRadius: 8, flexShrink: 0,
-        background: 'rgba(99,102,241,0.25)',
+        background: 'var(--teal-surface)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <Icon size={15} color={PURPLE} />
+        <Icon size={15} color={TEAL} />
       </div>
       {label}
     </button>
@@ -300,27 +300,27 @@ function CategoryPill({ id, label, color, Icon, active, locked, onSelect, onDele
       style={{
         display: 'flex', alignItems: 'center', gap: 12,
         borderRadius: 12, padding: '12px 16px', minHeight: 48, marginBottom: 8,
-        background: active ? 'rgba(99,102,241,0.25)' : SURFACE,
-        border: `1px solid ${active ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.07)'}`,
-        borderLeft: active ? '4px solid #6366f1' : `4px solid transparent`,
+        background: active ? 'var(--teal-surface)' : SURFACE,
+        border: `1px solid ${active ? 'var(--teal-border)' : 'var(--border-subtle)'}`,
+        borderLeft: active ? `4px solid var(--teal)` : `4px solid transparent`,
         cursor: 'pointer',
       }}
     >
       <div style={{
         width: 34, height: 34, borderRadius: 10, flexShrink: 0,
-        background: active ? 'rgba(99,102,241,0.3)' : 'rgba(255,255,255,0.06)',
+        background: active ? 'var(--teal-dim-bg)' : 'var(--surface-1)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: active ? PURPLE : '#64748b',
+        color: active ? TEAL : 'var(--color-subtle)',
       }}>
         <Icon size={16} strokeWidth={2} />
       </div>
-      <span style={{ fontSize: 15, fontWeight: 600, flex: 1, color: active ? '#e2e8f4' : '#94a3b8', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <span style={{ fontSize: 15, fontWeight: 600, flex: 1, color: active ? 'var(--color-text)' : 'var(--color-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {label}
       </span>
       {!locked && id !== 'all' && onDelete && (
         <button
           onClick={e => { e.stopPropagation(); onDelete(); }}
-          style={{ width: 28, height: 28, borderRadius: 8, flexShrink: 0, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#475569' }}
+          style={{ width: 28, height: 28, borderRadius: 8, flexShrink: 0, background: 'none', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-subtle)' }}
         >
           <X size={14} />
         </button>
@@ -329,7 +329,7 @@ function CategoryPill({ id, label, color, Icon, active, locked, onSelect, onDele
   );
 }
 
-/* ─── Small icon button (for course card actions) ─────────── */
+/* ─── Small icon button ─────────────────────────────── */
 function IconBtn({ onClick, title, danger, children }) {
   return (
     <button
@@ -339,7 +339,7 @@ function IconBtn({ onClick, title, danger, children }) {
         width: 32, height: 32, borderRadius: 8, flexShrink: 0,
         background: 'none', border: 'none', cursor: 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        color: danger ? '#f87171' : '#64748b',
+        color: danger ? '#f87171' : 'var(--color-subtle)',
       }}
     >
       {children}

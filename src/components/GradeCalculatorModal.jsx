@@ -9,7 +9,7 @@ import { gradeLabel } from '../lib/constants';
 
 const TARGET_OPTIONS = [
   { letter: 'A', label: 'A  (93%+)', value: 93, color: '#4ade80' },
-  { letter: 'B', label: 'B  (83%+)', value: 83, color: '#818cf8' },
+  { letter: 'B', label: 'B  (83%+)', value: 83, color: '#5eead4' },
   { letter: 'C', label: 'C  (73%+)', value: 73, color: '#fbbf24' },
   { letter: 'D', label: 'D  (63%+)', value: 63, color: '#fb923c' },
 ];

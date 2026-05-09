@@ -31,15 +31,15 @@ export default function OnboardingOverlay() {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '40px 24px',
-      background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)',
+      background: 'var(--gradient-onboarding)',
       boxSizing: 'border-box',
     }}>
 
       {/* Icon */}
       <div style={{
         width: 56, height: 56, borderRadius: 16, marginBottom: 20,
-        background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
-        boxShadow: '0 0 40px rgba(99,102,241,0.4)',
+        background: 'linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%)',
+        boxShadow: '0 0 40px var(--teal-glow)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
         <Sparkles size={26} color="white" strokeWidth={1.8} />
@@ -48,7 +48,7 @@ export default function OnboardingOverlay() {
       {/* Title */}
       <h1 style={{
         fontSize: 40, fontWeight: 800, margin: '0 0 8px',
-        background: 'linear-gradient(135deg, #818cf8 0%, #c084fc 60%, #e879f9 100%)',
+        background: 'linear-gradient(135deg, var(--teal-light) 0%, var(--teal) 100%)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',
@@ -58,7 +58,7 @@ export default function OnboardingOverlay() {
       </h1>
 
       {/* Tagline */}
-      <p style={{ fontSize: 15, color: '#64748b', margin: '0 0 40px', fontWeight: 500 }}>
+      <p style={{ fontSize: 15, color: 'var(--color-subtle)', margin: '0 0 40px', fontWeight: 500 }}>
         Study smarter. Not harder.
       </p>
 
@@ -73,24 +73,24 @@ export default function OnboardingOverlay() {
       }}>
         {STEPS.map(step => (
           <div key={step.n} style={{
-            background: 'rgba(255,255,255,0.05)',
-            border: '1px solid rgba(255,255,255,0.08)',
+            background: 'var(--surface-1)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: 16,
             padding: '24px 20px',
           }}>
             <div style={{
               fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
-              letterSpacing: '0.16em', color: '#818cf8', marginBottom: 10,
+              letterSpacing: '0.16em', color: 'var(--teal)', marginBottom: 10,
             }}>
               Step {step.n}
             </div>
             <div style={{
-              fontSize: 15, fontWeight: 700, color: '#e2e8f4',
+              fontSize: 15, fontWeight: 700, color: 'var(--color-text)',
               marginBottom: 8, lineHeight: 1.3,
             }}>
               {step.title}
             </div>
-            <div style={{ fontSize: 13, color: '#64748b', lineHeight: 1.6 }}>
+            <div style={{ fontSize: 13, color: 'var(--color-subtle)', lineHeight: 1.6 }}>
               {step.desc}
             </div>
           </div>
@@ -103,8 +103,8 @@ export default function OnboardingOverlay() {
         style={{
           display: 'flex', alignItems: 'center', gap: 10,
           padding: '14px 32px', borderRadius: 12, border: 'none',
-          background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 100%)',
-          boxShadow: '0 0 0 1px rgba(99,102,241,0.5), 0 8px 32px rgba(99,102,241,0.35)',
+          background: 'linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%)',
+          boxShadow: '0 0 0 1px var(--teal-border), 0 8px 32px var(--teal-glow)',
           color: 'white', fontSize: 15, fontWeight: 700,
           cursor: 'pointer', marginBottom: 16,
         }}
@@ -115,9 +115,9 @@ export default function OnboardingOverlay() {
 
       {/* Divider */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-        <div style={{ width: 48, height: 1, background: 'rgba(255,255,255,0.1)' }} />
-        <span style={{ fontSize: 11, color: '#475569' }}>or</span>
-        <div style={{ width: 48, height: 1, background: 'rgba(255,255,255,0.1)' }} />
+        <div style={{ width: 48, height: 1, background: 'var(--border-subtle)' }} />
+        <span style={{ fontSize: 11, color: 'var(--color-subtle)' }}>or</span>
+        <div style={{ width: 48, height: 1, background: 'var(--border-subtle)' }} />
       </div>
 
       {/* Add Course Manually button */}
@@ -126,9 +126,9 @@ export default function OnboardingOverlay() {
         style={{
           display: 'flex', alignItems: 'center', gap: 8,
           padding: '10px 20px', borderRadius: 10,
-          border: '1px solid rgba(255,255,255,0.12)',
-          background: 'rgba(255,255,255,0.04)',
-          color: '#94a3b8', fontSize: 13, fontWeight: 500,
+          border: '1px solid var(--border-medium)',
+          background: 'var(--surface-1)',
+          color: 'var(--color-muted)', fontSize: 13, fontWeight: 500,
           cursor: 'pointer',
         }}
       >

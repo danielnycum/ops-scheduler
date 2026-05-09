@@ -94,8 +94,8 @@ export default function SyllabusModal() {
       <div
         className="relative rounded-xl border-2 border-dashed transition-colors duration-150 flex flex-col items-center justify-center gap-3 py-12 px-6 mb-4 select-none"
         style={{
-          borderColor: dragging ? 'var(--color-accent)' : 'var(--color-border)',
-          background:  dragging ? 'rgba(99,102,241,0.07)' : 'rgba(255,255,255,0.02)',
+          borderColor: dragging ? 'var(--teal)' : 'var(--border-subtle)',
+          background:  dragging ? 'var(--teal-dim-bg)' : 'var(--surface-3)',
           cursor: status === 'loading' ? 'default' : 'pointer',
         }}
         onDragOver={e => { e.preventDefault(); if (status !== 'loading') setDragging(true); }}
@@ -118,9 +118,9 @@ export default function SyllabusModal() {
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center"
               style={{
-                background: 'rgba(99,102,241,0.1)',
-                color: 'var(--color-accent-text)',
-                boxShadow: '0 0 0 1px rgba(99,102,241,0.2)',
+                background: 'var(--teal-surface)',
+                color: 'var(--teal-light)',
+                boxShadow: '0 0 0 1px var(--teal-border)',
               }}
             >
               <Upload size={24} />

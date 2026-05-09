@@ -16,17 +16,17 @@ export function Input({
       autoFocus={autoFocus}
       onKeyDown={onKeyDown}
       style={{
-        background: 'rgba(255,255,255,0.05)',
-        border: error ? '1px solid var(--color-danger)' : '1px solid rgba(255,255,255,0.1)',
+        background: 'var(--surface-1)',
+        border: error ? '1px solid var(--color-danger)' : '1px solid var(--border-subtle)',
         borderRadius: '10px',
-        color: '#e2e8f4',
+        color: 'var(--color-text)',
         ...style,
       }}
       className={cn(
         'w-full text-[13px] font-sans',
         'px-3 py-2 transition-colors duration-150',
-        'placeholder:text-[#475569]',
-        'focus:outline-none focus:border-[rgba(99,102,241,0.6)] focus:shadow-[0_0_0_3px_rgba(99,102,241,0.15)]',
+        'placeholder:text-disabled',
+        'focus:outline-none focus:border-[rgba(20,184,166,0.6)] focus:shadow-[0_0_0_3px_rgba(20,184,166,0.15)]',
         className,
       )}
     />

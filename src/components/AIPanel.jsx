@@ -25,7 +25,7 @@ function ScoreChip({ score }) {
   if (score === null) {
     return <span className="text-[10px] text-disabled italic flex-shrink-0">unweighted</span>;
   }
-  const color = score >= 5 ? '#f87171' : score >= 2 ? '#fbbf24' : score >= 1 ? '#818cf8' : '#64748b';
+  const color = score >= 5 ? '#f87171' : score >= 2 ? '#fbbf24' : score >= 1 ? 'var(--teal)' : '#64748b';
   return (
     <span
       className="text-[10px] font-bold font-mono px-1.5 py-0.5 rounded flex-shrink-0"
@@ -42,7 +42,7 @@ function formatDue(dueDate) {
   if (days < 0)  return { label: `${Math.abs(days)}d overdue`, color: '#f87171' };
   if (days === 0) return { label: 'Due today',  color: '#fbbf24' };
   if (days === 1) return { label: 'Due tomorrow', color: '#fbbf24' };
-  return { label: `Due in ${days}d`, color: '#64748b' };
+  return { label: `Due in ${days}d`, color: 'var(--color-subtle)' };
 }
 
 function TaskRow({ task, courses }) {
@@ -51,14 +51,11 @@ function TaskRow({ task, courses }) {
   const due    = formatDue(task.dueDate);
 
   return (
-    <div className="flex items-center gap-2 py-1.5 px-3 last:border-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-      {/* Course color bar */}
+    <div className="flex items-center gap-2 py-1.5 px-3 last:border-0" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
       <div
         className="w-1 self-stretch rounded-full flex-shrink-0"
-        style={{ background: course?.color ?? '#334155', minHeight: '1.25rem' }}
+        style={{ background: course?.color ?? 'var(--color-border)', minHeight: '1.25rem' }}
       />
-
-      {/* Main content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5">
           <span className="text-[12px] text-text font-medium truncate flex-1 leading-snug">
@@ -68,10 +65,7 @@ function TaskRow({ task, courses }) {
         </div>
         <div className="flex items-center gap-2 mt-0.5">
           {course && (
-            <span
-              className="text-[10px] font-medium truncate"
-              style={{ color: course.color }}
-            >
+            <span className="text-[10px] font-medium truncate" style={{ color: course.color }}>
               {course.label}
             </span>
           )}
@@ -86,7 +80,7 @@ function TaskRow({ task, courses }) {
   );
 }
 
-function Section({ icon: Icon, title, color, children, empty }) {
+function Section({ icon: Icon, title, children, empty }) {
   return (
     <div className="mb-5">
       <div className="flex items-center gap-2 mb-2">
@@ -95,11 +89,11 @@ function Section({ icon: Icon, title, color, children, empty }) {
           style={{
             width: '3px',
             height: '16px',
-            background: '#818cf8',
-            boxShadow: '0 0 10px #818cf8',
+            background: 'var(--teal)',
+            boxShadow: '0 0 10px var(--teal-glow)',
           }}
         />
-        <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: '#818cf8' }}>
+        <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: 'var(--teal-light)' }}>
           {title}
         </span>
       </div>
@@ -108,8 +102,8 @@ function Section({ icon: Icon, title, color, children, empty }) {
         : <div
             className="rounded-xl overflow-hidden"
             style={{
-              background: 'rgba(255,255,255,0.05)',
-              border: '1px solid rgba(255,255,255,0.08)',
+              background: 'var(--surface-1)',
+              border: '1px solid var(--border-subtle)',
             }}
           >
             {children}
@@ -166,8 +160,8 @@ export default function AIPanel() {
     <motion.div
       className="fixed right-0 top-0 bottom-0 w-96 z-40 flex flex-col"
       style={{
-        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)',
-        border: '1px solid rgba(255,255,255,0.1)',
+        background: 'var(--gradient-ai-panel)',
+        border: '1px solid var(--border-subtle)',
         boxShadow: '-16px 0 60px rgba(0,0,0,0.65)',
       }}
       initial={{ x: '100%', opacity: 0 }}
@@ -176,23 +170,25 @@ export default function AIPanel() {
       transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+      <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
         <div className="flex items-center gap-2">
-          <Sparkles size={15} className="text-ai-text" />
-          <span className="text-[12px] font-semibold uppercase tracking-[0.14em] text-ai-text">
+          <Sparkles size={15} style={{ color: 'var(--teal-light)' }} />
+          <span className="text-[12px] font-semibold uppercase tracking-[0.14em]" style={{ color: 'var(--teal-light)' }}>
             AI Analysis
           </span>
         </div>
         <button
           onClick={() => setAiOpen(false)}
-          className="w-7 h-7 flex items-center justify-center rounded-md text-subtle hover:text-text hover:bg-[#1a1030] transition-colors"
+          className="w-7 h-7 flex items-center justify-center rounded-md text-subtle hover:text-text transition-colors"
+          onMouseEnter={e => { e.currentTarget.style.background = 'var(--teal-surface)'; }}
+          onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; }}
         >
           <X size={15} />
         </button>
       </div>
 
       {/* Legend */}
-      <div className="px-5 pt-2.5 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+      <div className="px-5 pt-2.5 pb-2" style={{ borderBottom: '1px solid var(--border-subtle)' }}>
         <p className="text-[10px] text-disabled leading-relaxed">
           Score = Grade Weight ÷ Days Until Due · higher = more urgent
         </p>
@@ -212,12 +208,7 @@ export default function AIPanel() {
 
         {tasks.length > 0 && (
           <>
-            <Section
-              icon={Target}
-              title="Today's Focus"
-              color="#a855f7"
-              empty={todayEmpty}
-            >
+            <Section icon={Target} title="Today's Focus" empty={todayEmpty}>
               {todayTasks.map(({ task }) => (
                 <TaskRow key={task.id} task={task} courses={courses} />
               ))}
@@ -226,7 +217,6 @@ export default function AIPanel() {
             <Section
               icon={TrendingUp}
               title="This Week — Ranked"
-              color="#6366f1"
               empty={weekRanked.length === 0 ? 'Add due dates to tasks to see them ranked here.' : null}
             >
               {weekRanked.map(({ task }) => (
@@ -237,7 +227,6 @@ export default function AIPanel() {
             <Section
               icon={SkipForward}
               title="What To Skip"
-              color="#64748b"
               empty={toSkip.length === 0 ? 'Nothing scores below 1.0 right now.' : null}
             >
               {toSkip.map(({ task }) => (

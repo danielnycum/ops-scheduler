@@ -1,9 +1,24 @@
-import { AlertTriangle, CalendarDays, Menu } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { AlertTriangle, CalendarDays, Menu, Sun, Moon } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 
 export function Header({ onMenuClick, isMobile }) {
   const { conflicts, done, total, pct, tasks, view, setView, setSelectedDay } = useAppContext();
   const conflictCount = Math.ceil(conflicts.size / 2);
+  const [theme, setTheme] = useState(() => localStorage.getItem('clarus_theme') || 'dark');
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+    localStorage.setItem('clarus_theme', theme);
+  }, [theme]);
+
+  function toggleTheme() {
+    setTheme(t => t === 'dark' ? 'light' : 'dark');
+  }
 
   function goToFirstConflict() {
     const firstConflictTask = tasks.find(t => conflicts.has(t.id));
@@ -17,8 +32,8 @@ export function Header({ onMenuClick, isMobile }) {
     <header
       className="flex items-center justify-between flex-shrink-0 px-4 md:px-6 gap-3"
       style={{
-        background: 'linear-gradient(160deg, #1a1a2e 0%, #16213e 100%)',
-        borderBottom: '1px solid rgba(255,255,255,0.07)',
+        background: 'var(--gradient-header)',
+        borderBottom: '1px solid var(--border-subtle)',
         paddingTop: '14px',
         paddingBottom: '14px',
       }}
@@ -37,28 +52,24 @@ export function Header({ onMenuClick, isMobile }) {
           <div
             className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
             style={{
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-              boxShadow: '0 2px 8px rgba(99,102,241,0.4)',
+              background: 'linear-gradient(135deg, var(--teal-dark) 0%, var(--teal) 100%)',
+              boxShadow: '0 2px 8px var(--teal-glow)',
             }}
           >
             <CalendarDays size={16} className="text-white" strokeWidth={2} />
           </div>
           <div>
-            <h1 className="text-[18px] font-bold tracking-tight" style={{ color: '#e8edf5' }}>
-              Clarus
-            </h1>
-            <div className="hidden md:block text-[11px] text-subtle">
-              Study smarter. Not harder.
-            </div>
+            <h1 className="text-[18px] font-bold tracking-tight text-text">Clarus</h1>
+            <div className="hidden md:block text-[11px] text-subtle">Study smarter. Not harder.</div>
           </div>
         </div>
       </div>
 
-      {/* Mobile Week/Day toggle — center-right, visible only on mobile */}
+      {/* Mobile Week/Day toggle */}
       {isMobile && (
         <div
-          className="flex items-center gap-0.5 p-0.5 rounded-lg border border-border"
-          style={{ background: 'rgba(255,255,255,0.03)' }}
+          className="flex items-center gap-0.5 p-0.5 rounded-lg"
+          style={{ background: 'var(--surface-3)', border: '1px solid var(--border-subtle)' }}
         >
           {[
             { key: 'weekly', label: 'Week' },
@@ -71,11 +82,9 @@ export function Header({ onMenuClick, isMobile }) {
                 onClick={() => setView(key)}
                 className="px-3 py-1.5 rounded-md text-[11px] font-semibold transition-all duration-150 select-none"
                 style={{
-                  color:      active ? 'var(--color-accent-text)' : 'var(--color-subtle)',
-                  background: active
-                    ? 'linear-gradient(135deg, rgba(99,102,241,0.22) 0%, rgba(99,102,241,0.12) 100%)'
-                    : 'transparent',
-                  boxShadow: active ? '0 0 0 1px rgba(99,102,241,0.3)' : 'none',
+                  color:      active ? 'var(--teal-light)' : 'var(--color-subtle)',
+                  background: active ? 'var(--teal-surface)' : 'transparent',
+                  boxShadow:  active ? '0 0 0 1px var(--teal-border)' : 'none',
                 }}
               >
                 {label}
@@ -85,31 +94,33 @@ export function Header({ onMenuClick, isMobile }) {
         </div>
       )}
 
-      {/* Right: conflict badge + progress — desktop only */}
-      <div className="hidden md:flex items-center gap-2.5 flex-wrap justify-end">
+      {/* Right: conflict + progress + theme toggle */}
+      <div className="flex items-center gap-2 flex-wrap justify-end">
         {conflictCount > 0 && (
           <button
             onClick={goToFirstConflict}
-            className="flex items-center gap-1.5 text-[11px] font-medium text-danger-text px-3 py-1.5 rounded-lg cursor-pointer transition-all hover:border-danger hover:shadow-[0_0_12px_rgba(239,68,68,0.15)]"
-            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
-            style={{ animation: 'conflictPulse 2.5s ease-in-out infinite' }}
+            className="hidden md:flex items-center gap-1.5 text-[11px] font-medium text-danger-text px-3 py-1.5 rounded-lg cursor-pointer transition-all"
+            style={{
+              background: 'var(--surface-1)',
+              border: '1px solid var(--border-subtle)',
+              animation: 'conflictPulse 2.5s ease-in-out infinite',
+            }}
           >
             <AlertTriangle size={12} strokeWidth={2.5} />
             {conflictCount} Conflict{conflictCount > 1 ? 's' : ''} — Review
           </button>
         )}
 
-        {/* Progress pill */}
         <div
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
-          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg"
+          style={{ background: 'var(--surface-1)', border: '1px solid var(--border-subtle)' }}
         >
           <div className="relative w-5 h-5 flex-shrink-0">
             <svg viewBox="0 0 20 20" className="w-5 h-5 -rotate-90">
               <circle cx="10" cy="10" r="7" fill="none" stroke="var(--color-border)" strokeWidth="2.5" />
               <circle
                 cx="10" cy="10" r="7" fill="none"
-                stroke="var(--color-accent-text)"
+                stroke="var(--teal)"
                 strokeWidth="2.5"
                 strokeDasharray={`${2 * Math.PI * 7}`}
                 strokeDashoffset={`${2 * Math.PI * 7 * (1 - pct / 100)}`}
@@ -123,11 +134,32 @@ export function Header({ onMenuClick, isMobile }) {
           </span>
           <span
             className="text-[12px] font-semibold"
-            style={{ color: pct === 100 ? 'var(--color-success-text)' : 'var(--color-accent-text)' }}
+            style={{ color: pct === 100 ? 'var(--color-success-text)' : 'var(--teal)' }}
           >
             {pct}%
           </span>
         </div>
+
+        <button
+          onClick={toggleTheme}
+          title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+          className="w-9 h-9 flex items-center justify-center rounded-lg transition-all duration-150"
+          style={{
+            background: 'var(--surface-1)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--color-subtle)',
+          }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--teal)';
+            e.currentTarget.style.borderColor = 'var(--teal-border)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'var(--color-subtle)';
+            e.currentTarget.style.borderColor = 'var(--border-subtle)';
+          }}
+        >
+          {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+        </button>
       </div>
     </header>
   );
