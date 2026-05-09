@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Sparkles, Plus, LayoutGrid, Calendar } from 'lucide-react';
 import { useAppContext } from './context/AppContext';
 import { Header } from './components/layout/Header';
 import { Sidebar } from './components/layout/Sidebar';
@@ -14,14 +13,12 @@ import SyllabusConfirmModal from './components/SyllabusConfirmModal';
 import GradeCalculatorModal from './components/GradeCalculatorModal';
 import OnboardingOverlay from './components/OnboardingOverlay';
 import AIPanel from './components/AIPanel';
-import { Button } from './components/ui/Button';
 
 export default function App() {
-  const { ready, view, setView, modal, aiOpen, setModal, setEditTarget, setAiOpen, tasks, courses } = useAppContext();
+  const { ready, view, setView, modal, aiOpen, tasks, courses } = useAppContext();
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia('(max-width: 767px)').matches);
 
-  // Track mobile breakpoint and auto-switch to daily on mobile
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)');
     if (mq.matches) setView('daily');
@@ -33,11 +30,9 @@ export default function App() {
     return () => mq.removeEventListener('change', handler);
   }, []);
 
-  // Close mobile nav when a modal opens
   useEffect(() => {
     if (modal) setMobileNavOpen(false);
   }, [modal]);
-
 
   if (!ready) {
     return (
@@ -61,7 +56,7 @@ export default function App() {
 
       <div className="flex flex-1 overflow-hidden">
 
-        {/* ── Mobile backdrop ── */}
+        {/* Mobile backdrop */}
         <AnimatePresence>
           {mobileNavOpen && (
             <motion.div
@@ -77,7 +72,7 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        {/* ── Sidebar: fixed drawer on mobile, normal flow on desktop ── */}
+        {/* Sidebar */}
         <div
           className={[
             'fixed inset-y-0 left-0 z-50',
@@ -91,117 +86,40 @@ export default function App() {
         </div>
 
         <main className="flex-1 flex flex-col overflow-hidden min-w-0">
-
-          {/* ── Toolbar ── */}
-          <div
-            className="flex items-center justify-end md:justify-between px-4 md:px-5 py-3 border-b border-border flex-shrink-0 gap-3"
-            style={{ background: 'rgba(11,15,26,0.7)', backdropFilter: 'blur(8px)' }}
-          >
-            {/* View toggle — desktop only */}
-            <div
-              className="hidden md:flex gap-0.5 p-1 rounded-xl border border-border"
-              style={{ background: 'rgba(255,255,255,0.03)' }}
-            >
-              {[
-                { key: 'weekly', label: 'Week', Icon: LayoutGrid },
-                { key: 'daily',  label: 'Day',  Icon: Calendar   },
-              ].map(({ key, label, Icon }) => (
-                <div key={key} className="relative">
-                  {view === key && (
-                    <motion.div
-                      layoutId="viewToggleActive"
-                      className="absolute inset-0 rounded-lg"
-                      style={{
-                        background: 'linear-gradient(135deg, rgba(20,184,166,0.2) 0%, rgba(20,184,166,0.1) 100%)',
-                        border: '1px solid rgba(20,184,166,0.3)',
-                      }}
-                      transition={{ type: 'spring', stiffness: 350, damping: 35 }}
-                    />
-                  )}
-                  <button
-                    onClick={() => setView(key)}
-                    className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium transition-colors duration-150 cursor-pointer z-10 select-none"
-                    style={{ color: view === key ? 'var(--color-accent-text)' : 'var(--color-subtle)' }}
-                  >
-                    <Icon size={13} />
-                    {label}
-                  </button>
-                </div>
-              ))}
-            </div>
-
-            {/* Actions */}
-            <div className="flex items-center gap-2">
-              {/* AI Optimize — desktop only (mobile: in sidebar) */}
-              <Button
-                variant="ai"
-                onClick={() => setAiOpen(p => !p)}
-                className={`hidden md:flex ${aiOpen ? 'border-ai' : ''}`}
-              >
-                <Sparkles size={13} />
-                {aiOpen ? 'Close AI' : 'AI Optimize'}
-              </Button>
-
-              {/* Add Task — always visible */}
-              <motion.button
-                onClick={() => { setEditTarget(null); setModal('addTask'); }}
-                whileTap={{ scale: 0.97 }}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-[13px] font-semibold text-white select-none cursor-pointer"
-                style={{
-                  background: 'linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%)',
-                  boxShadow: '0 0 0 1px var(--teal-border), 0 4px 14px var(--teal-glow)',
-                  transition: 'box-shadow 0.15s, background 0.15s',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px rgba(20,184,166,0.7), 0 6px 20px rgba(20,184,166,0.45)';
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.boxShadow = '0 0 0 1px var(--teal-border), 0 4px 14px var(--teal-glow)';
-                }}
-              >
-                <Plus size={15} strokeWidth={2.5} />
-                <span className="hidden sm:inline">Add Task</span>
-                <span className="sm:hidden">Add</span>
-                <kbd className="hidden md:inline-flex items-center text-[10px] font-mono opacity-50 ml-0.5 border border-white/20 rounded px-1">N</kbd>
-              </motion.button>
-            </div>
-          </div>
-
-          {/* ── Content ── */}
           <div className="flex-1 overflow-auto p-4 md:p-5 flex flex-col">
             {tasks.length === 0 && courses.length === 0 ? (
               <OnboardingOverlay />
             ) : (
-            <AnimatePresence mode="wait" initial={false}>
-              {view === 'weekly' ? (
-                <motion.div
-                  key="weekly"
-                  initial={{ opacity: 0, x: -12 }}
-                  animate={{ opacity: 1,  x: 0   }}
-                  exit={{    opacity: 0,  x: -12  }}
-                  transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-                  className="h-full"
-                >
-                  <WeeklyView />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="daily-view"
-                  initial={{ opacity: 0, x: 12 }}
-                  animate={{ opacity: 1,  x: 0  }}
-                  exit={{    opacity: 0,  x: 12  }}
-                  transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
-                >
-                  <DailyView />
-                </motion.div>
-              )}
-            </AnimatePresence>
+              <AnimatePresence mode="wait" initial={false}>
+                {view === 'weekly' ? (
+                  <motion.div
+                    key="weekly"
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1,  x: 0   }}
+                    exit={{    opacity: 0,  x: -12  }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                    className="h-full"
+                  >
+                    <WeeklyView />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="daily-view"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1,  x: 0  }}
+                    exit={{    opacity: 0,  x: 12  }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                  >
+                    <DailyView />
+                  </motion.div>
+                )}
+              </AnimatePresence>
             )}
           </div>
         </main>
       </div>
 
-      {/* ── Modals ── */}
+      {/* Modals */}
       <AnimatePresence>
         {(modal === 'addTask' || modal === 'editTask') && <TaskModal key="task-modal" />}
         {modal === 'addCat' && <CatModal key="cat-modal" />}
@@ -211,7 +129,7 @@ export default function App() {
         {modal === 'gradeCalc'       && <GradeCalculatorModal key="grade-calc-modal" />}
       </AnimatePresence>
 
-      {/* ── AI Panel ── */}
+      {/* AI Panel */}
       <AnimatePresence>
         {aiOpen && <AIPanel key="ai-panel" />}
       </AnimatePresence>
