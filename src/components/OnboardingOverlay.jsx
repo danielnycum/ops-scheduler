@@ -40,6 +40,7 @@ export default function OnboardingOverlay() {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: [
+            'linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)',
             'radial-gradient(ellipse 60% 40% at 50% 20%, rgba(99,102,241,0.08) 0%, transparent 70%)',
             'radial-gradient(ellipse 40% 30% at 70% 70%, rgba(168,85,247,0.05) 0%, transparent 60%)',
           ].join(', '),
@@ -155,19 +156,19 @@ function StepCard({ step }) {
   const { Icon } = step;
   return (
     <div
-      className="flex flex-row md:flex-col items-start md:items-center gap-3 md:gap-3 p-4 md:p-5 rounded-2xl border md:text-center h-full"
+      className="flex flex-row md:flex-col items-start md:items-center gap-3 md:gap-3 p-4 md:p-5 rounded-2xl md:text-center h-full"
       style={{
-        background:   `rgba(${hexChannels(step.glow)},0.05)`,
-        borderColor:  `rgba(${hexChannels(step.glow)},0.14)`,
+        background: 'rgba(255,255,255,0.05)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '16px',
       }}
     >
       {/* Icon circle */}
       <div
         className="w-9 h-9 md:w-11 md:h-11 rounded-xl flex items-center justify-center flex-shrink-0"
         style={{
-          background:   `rgba(${hexChannels(step.glow)},0.14)`,
-          color:        step.color,
-          boxShadow:    `0 0 16px rgba(${hexChannels(step.glow)},0.18)`,
+          background: 'rgba(99,102,241,0.2)',
+          color:      step.color,
         }}
       >
         <Icon size={17} strokeWidth={1.8} />

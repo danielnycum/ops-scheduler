@@ -15,9 +15,10 @@ export function Header({ onMenuClick, isMobile }) {
 
   return (
     <header
-      className="flex items-center justify-between flex-shrink-0 px-4 md:px-6 border-b border-border gap-3"
+      className="flex items-center justify-between flex-shrink-0 px-4 md:px-6 gap-3"
       style={{
-        background: 'linear-gradient(180deg, #131c30 0%, var(--color-panel) 100%)',
+        background: 'linear-gradient(160deg, #1a1a2e 0%, #16213e 100%)',
+        borderBottom: '1px solid rgba(255,255,255,0.07)',
         paddingTop: '14px',
         paddingBottom: '14px',
       }}
@@ -34,7 +35,7 @@ export function Header({ onMenuClick, isMobile }) {
 
         <div className="flex items-center gap-2.5">
           <div
-            className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+            className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
             style={{
               background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
               boxShadow: '0 2px 8px rgba(99,102,241,0.4)',
@@ -43,7 +44,7 @@ export function Header({ onMenuClick, isMobile }) {
             <CalendarDays size={16} className="text-white" strokeWidth={2} />
           </div>
           <div>
-            <h1 className="text-[16px] font-bold tracking-tight" style={{ color: '#e8edf5' }}>
+            <h1 className="text-[18px] font-bold tracking-tight" style={{ color: '#e8edf5' }}>
               Clarus
             </h1>
             <div className="hidden md:block text-[11px] text-subtle">
@@ -89,7 +90,8 @@ export function Header({ onMenuClick, isMobile }) {
         {conflictCount > 0 && (
           <button
             onClick={goToFirstConflict}
-            className="flex items-center gap-1.5 text-[11px] font-medium text-danger-text px-3 py-1.5 rounded-lg border border-[rgba(239,68,68,0.3)] bg-danger-surface cursor-pointer transition-all hover:border-danger hover:shadow-[0_0_12px_rgba(239,68,68,0.15)]"
+            className="flex items-center gap-1.5 text-[11px] font-medium text-danger-text px-3 py-1.5 rounded-lg cursor-pointer transition-all hover:border-danger hover:shadow-[0_0_12px_rgba(239,68,68,0.15)]"
+            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
             style={{ animation: 'conflictPulse 2.5s ease-in-out infinite' }}
           >
             <AlertTriangle size={12} strokeWidth={2.5} />
@@ -99,8 +101,8 @@ export function Header({ onMenuClick, isMobile }) {
 
         {/* Progress pill */}
         <div
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border"
-          style={{ background: 'rgba(255,255,255,0.04)' }}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg"
+          style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}
         >
           <div className="relative w-5 h-5 flex-shrink-0">
             <svg viewBox="0 0 20 20" className="w-5 h-5 -rotate-90">

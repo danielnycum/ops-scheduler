@@ -52,23 +52,25 @@ export default function DailyView() {
               className="flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-150 min-w-[3rem]"
               style={{
                 background: isActive
-                  ? 'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(99,102,241,0.1) 100%)'
-                  : isToday ? 'rgba(255,255,255,0.04)' : 'transparent',
-                border: `1px solid ${isActive ? 'rgba(99,102,241,0.4)' : isToday ? 'rgba(99,102,241,0.2)' : 'transparent'}`,
-                color: isActive ? 'var(--color-accent-text)' : 'var(--color-subtle)',
+                  ? 'rgba(99,102,241,0.2)'
+                  : 'rgba(255,255,255,0.04)',
+                border: isActive
+                  ? '1px solid rgba(99,102,241,0.4)'
+                  : '1px solid rgba(255,255,255,0.08)',
+                color: isActive ? '#818cf8' : '#64748b',
               }}
             >
               <span className="text-[9px] font-bold uppercase tracking-[0.08em]">{SHORT_DAYS[i]}</span>
               <span
                 className="text-[15px] font-bold leading-tight"
-                style={{ color: isActive ? 'var(--color-accent-text)' : isToday ? 'var(--color-text)' : 'var(--color-muted)' }}
+                style={{ color: isActive ? '#818cf8' : isToday ? 'var(--color-text)' : 'var(--color-muted)' }}
               >
                 {weekDates[i]}
               </span>
               {isToday && (
                 <span
                   className="w-1 h-1 rounded-full mt-0.5"
-                  style={{ background: isActive ? 'var(--color-accent-text)' : 'var(--color-accent)' }}
+                  style={{ background: '#818cf8' }}
                 />
               )}
             </button>
@@ -86,8 +88,8 @@ export default function DailyView() {
         </button>
 
         <div className="text-center flex-1 md:flex-none">
-          <h2 className="text-[18px] font-bold text-text tracking-tight">{DAYS[selectedDay]}</h2>
-          <div className="text-[11px] text-subtle mt-0.5 font-mono">
+          <h2 className="text-[18px] font-bold tracking-tight" style={{ color: '#e2e8f4' }}>{DAYS[selectedDay]}</h2>
+          <div className="text-[11px] mt-0.5 font-mono" style={{ color: '#64748b' }}>
             {list.length} task{list.length !== 1 ? 's' : ''}
             {filter !== 'all' && activeCat ? ` · ${activeCat.label}` : ''}
           </div>
@@ -175,13 +177,13 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
         onClick={onEdit}
         style={{
           background: task.completed
-            ? 'rgba(9,13,18,0.8)'
+            ? 'rgba(255,255,255,0.02)'
             : conflict
-            ? 'rgba(239,68,68,0.04)'
-            : 'var(--color-panel-alt)',
-          border: `1px solid ${conflict ? 'rgba(239,68,68,0.2)' : task.completed ? 'var(--color-border)' : `${cat.color}20`}`,
+            ? 'rgba(239,68,68,0.06)'
+            : 'rgba(255,255,255,0.05)',
+          border: `1px solid ${conflict ? 'rgba(239,68,68,0.2)' : 'rgba(255,255,255,0.08)'}`,
           borderLeft: `3px solid ${borderLeft}`,
-          opacity: task.completed ? 0.6 : 1,
+          opacity: task.completed ? 0.5 : 1,
         }}
       >
         <div className="flex items-start gap-3">

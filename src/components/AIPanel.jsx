@@ -51,7 +51,7 @@ function TaskRow({ task, courses }) {
   const due    = formatDue(task.dueDate);
 
   return (
-    <div className="flex items-center gap-2 py-1.5 border-b border-[#1a1030] last:border-0">
+    <div className="flex items-center gap-2 py-1.5 px-3 last:border-0" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
       {/* Course color bar */}
       <div
         className="w-1 self-stretch rounded-full flex-shrink-0"
@@ -90,14 +90,30 @@ function Section({ icon: Icon, title, color, children, empty }) {
   return (
     <div className="mb-5">
       <div className="flex items-center gap-2 mb-2">
-        <Icon size={12} style={{ color }} />
-        <span className="text-[10px] font-bold uppercase tracking-[0.14em]" style={{ color }}>
+        <div
+          className="flex-shrink-0 rounded-full"
+          style={{
+            width: '3px',
+            height: '16px',
+            background: '#818cf8',
+            boxShadow: '0 0 10px #818cf8',
+          }}
+        />
+        <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: '#818cf8' }}>
           {title}
         </span>
       </div>
       {empty
         ? <p className="text-[11px] text-disabled italic pl-0.5">{empty}</p>
-        : children
+        : <div
+            className="rounded-xl overflow-hidden"
+            style={{
+              background: 'rgba(255,255,255,0.05)',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
+          >
+            {children}
+          </div>
       }
     </div>
   );
@@ -148,15 +164,19 @@ export default function AIPanel() {
 
   return (
     <motion.div
-      className="fixed right-0 top-0 bottom-0 w-96 z-40 flex flex-col border-l border-[#1a1030]"
-      style={{ background: '#08060f', boxShadow: '-16px 0 60px rgba(0,0,0,0.65)' }}
+      className="fixed right-0 top-0 bottom-0 w-96 z-40 flex flex-col"
+      style={{
+        background: 'linear-gradient(180deg, #1a1a2e 0%, #16213e 60%, #0f3460 100%)',
+        border: '1px solid rgba(255,255,255,0.1)',
+        boxShadow: '-16px 0 60px rgba(0,0,0,0.65)',
+      }}
       initial={{ x: '100%', opacity: 0 }}
       animate={{ x: 0,      opacity: 1 }}
       exit={{    x: '100%', opacity: 0 }}
       transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-[#1a1030]">
+      <div className="flex items-center justify-between px-5 py-4" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <div className="flex items-center gap-2">
           <Sparkles size={15} className="text-ai-text" />
           <span className="text-[12px] font-semibold uppercase tracking-[0.14em] text-ai-text">
@@ -172,7 +192,7 @@ export default function AIPanel() {
       </div>
 
       {/* Legend */}
-      <div className="px-5 pt-2.5 pb-2 border-b border-[#1a1030]">
+      <div className="px-5 pt-2.5 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
         <p className="text-[10px] text-disabled leading-relaxed">
           Score = Grade Weight ÷ Days Until Due · higher = more urgent
         </p>

@@ -124,12 +124,12 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
       className="rounded-xl overflow-hidden"
       style={{
         background: isToday
-          ? 'linear-gradient(160deg, #1e1b4b 0%, #161d35 60%, var(--color-panel-alt) 100%)'
-          : 'var(--color-panel-alt)',
-        border: `1px solid ${borderColor}`,
-        boxShadow: isToday
-          ? '0 4px 24px rgba(99,102,241,0.18), 0 0 0 1px rgba(99,102,241,0.08)'
-          : '0 2px 8px rgba(0,0,0,0.2)',
+          ? 'rgba(99,102,241,0.12)'
+          : 'rgba(255,255,255,0.04)',
+        border: isToday
+          ? '1px solid rgba(99,102,241,0.35)'
+          : `1px solid ${hasConflict ? 'rgba(239,68,68,0.5)' : 'rgba(255,255,255,0.08)'}`,
+        boxShadow: '0 2px 12px rgba(0,0,0,0.3)',
         transition: 'border-color 0.15s, box-shadow 0.15s',
       }}
       onMouseEnter={() => setHovered(true)}
@@ -154,8 +154,19 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
         }}
         onClick={() => onDayClick(dayIdx)}
       >
-        {/* Left: pulse dot + date + name */}
+        {/* Left: purple accent bar (today only) + pulse dot + date + name */}
         <div className="flex items-center gap-2.5">
+          {isToday && (
+            <div
+              className="flex-shrink-0 rounded-full"
+              style={{
+                width: '3px',
+                height: '20px',
+                background: '#818cf8',
+                boxShadow: '0 0 10px #818cf8',
+              }}
+            />
+          )}
           {isToday && (
             <div
               className="w-2 h-2 rounded-full flex-shrink-0"
@@ -168,14 +179,14 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
           )}
           <span
             className="text-[24px] font-bold leading-none"
-            style={{ color: isToday ? 'var(--color-accent-text)' : 'var(--color-text)' }}
+            style={{ color: '#e2e8f4' }}
           >
             {dateNum}
           </span>
           <div className="flex flex-col leading-tight">
             <span
               className="text-[13px] font-semibold"
-              style={{ color: isToday ? 'var(--color-accent-text)' : 'var(--color-muted)' }}
+              style={{ color: isToday ? 'var(--color-accent-text)' : '#94a3b8' }}
             >
               {isToday ? 'Today' : day}
             </span>
@@ -238,19 +249,20 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
               return (
                 <div
                   key={task.id}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-lg"
+                  className="flex items-center gap-3 px-3 py-2.5"
                   style={{
-                    background: task.completed ? 'rgba(255,255,255,0.01)' : `${cat.color}10`,
+                    background: task.completed ? 'rgba(255,255,255,0.01)' : 'rgba(255,255,255,0.04)',
                     borderLeft: `2px solid ${conflicts.has(task.id) ? '#f87171' : task.completed ? 'var(--color-border)' : cat.color}`,
+                    borderRadius: '8px',
                     opacity: task.completed ? 0.45 : 1,
                   }}
                 >
-                  <span className="text-[11px] font-mono flex-shrink-0" style={{ color: 'var(--color-disabled)' }}>
+                  <span className="text-[11px] font-mono flex-shrink-0" style={{ color: '#64748b' }}>
                     {task.startTime}
                   </span>
                   <span
                     className="text-[12px] font-medium flex-1 truncate"
-                    style={{ color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)' }}
+                    style={{ color: task.completed ? 'var(--color-subtle)' : '#e2e8f4' }}
                   >
                     {task.title}
                   </span>

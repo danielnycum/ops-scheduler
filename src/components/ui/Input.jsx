@@ -15,12 +15,18 @@ export function Input({
       maxLength={maxLength}
       autoFocus={autoFocus}
       onKeyDown={onKeyDown}
-      style={style}
+      style={{
+        background: 'rgba(255,255,255,0.05)',
+        border: error ? '1px solid var(--color-danger)' : '1px solid rgba(255,255,255,0.1)',
+        borderRadius: '10px',
+        color: '#e2e8f4',
+        ...style,
+      }}
       className={cn(
-        'w-full bg-[#070c14] rounded-md text-text text-[13px] font-sans',
-        'px-3 py-2 border transition-colors duration-150',
-        'placeholder:text-subtle',
-        error ? 'border-danger' : 'border-border hover:border-border-hi',
+        'w-full text-[13px] font-sans',
+        'px-3 py-2 transition-colors duration-150',
+        'placeholder:text-[#475569]',
+        'focus:outline-none focus:border-[rgba(99,102,241,0.6)] focus:shadow-[0_0_0_3px_rgba(99,102,241,0.15)]',
         className,
       )}
     />
