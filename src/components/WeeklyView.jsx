@@ -244,9 +244,15 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
                   }}
                 >
                   <div className="flex items-center gap-1.5 min-w-0">
+                    {task.completed && (
+                      <span style={{ color: 'var(--teal)', fontSize: 10, fontWeight: 800, flexShrink: 0, lineHeight: 1 }}>✓</span>
+                    )}
                     <span
                       className="text-[12px] font-medium truncate"
-                      style={{ color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)' }}
+                      style={{
+                        color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)',
+                        textDecoration: task.completed ? 'line-through' : 'none',
+                      }}
                     >
                       {task.title}
                     </span>

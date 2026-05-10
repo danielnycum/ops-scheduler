@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Pencil, Trash2, AlertTriangle, ArrowLeft, Calendar } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, Pencil, Trash2, AlertTriangle, ArrowLeft, Calendar } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { Button } from './ui/Button';
 import { DAYS, SHORT_DAYS } from '../lib/constants';
@@ -15,14 +15,18 @@ export default function DailyView() {
     setModal, setEditTarget,
   } = useAppContext();
 
+  const [completedOpen, setCompletedOpen] = useState(false);
+
   const getCat = id => getCategoryById(id, categories);
 
   const list = tasks
     .filter(t => t.day === selectedDay && (filter === 'all' || t.category === filter))
     .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
-  const dayConflict = list.some(t => conflicts.has(t.id));
-  const allDone     = list.length > 0 && list.every(t => t.completed);
+  const activeTasks    = list.filter(t => !t.completed);
+  const completedTasks = list.filter(t => t.completed);
+  const dayConflict    = list.some(t => conflicts.has(t.id));
+  const allDone        = list.length > 0 && activeTasks.length === 0;
 
   const activeCat = filter !== 'all' ? getCat(filter) : null;
   const today     = todayIdx();
@@ -128,7 +132,7 @@ export default function DailyView() {
           </motion.div>
         ) : (
           <AnimatePresence initial={false} mode="popLayout">
-            {list.map(task => (
+            {activeTasks.map(task => (
               <TaskCard
                 key={task.id}
                 task={task}
@@ -140,6 +144,59 @@ export default function DailyView() {
               />
             ))}
           </AnimatePresence>
+        )}
+
+        {completedTasks.length > 0 && (
+          <div style={{ marginTop: activeTasks.length > 0 ? 16 : 0 }}>
+            <button
+              onClick={() => setCompletedOpen(o => !o)}
+              style={{
+                width: '100%', display: 'flex', alignItems: 'center', gap: 8,
+                padding: '8px 4px', background: 'none', border: 'none', cursor: 'pointer',
+              }}
+            >
+              <ChevronDown
+                size={14}
+                style={{
+                  color: 'var(--color-subtle)',
+                  transform: completedOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  transition: 'transform 0.2s ease',
+                  flexShrink: 0,
+                }}
+              />
+              <span style={{
+                fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
+                letterSpacing: '0.1em', color: 'var(--color-subtle)',
+              }}>
+                Completed ({completedTasks.length})
+              </span>
+            </button>
+
+            <AnimatePresence initial={false}>
+              {completedOpen && (
+                <motion.div
+                  key="completed-list"
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: 'auto', opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  {completedTasks.map(task => (
+                    <TaskCard
+                      key={task.id}
+                      task={task}
+                      cat={getCat(task.category)}
+                      conflict={conflicts.has(task.id)}
+                      onToggle={() => toggleComplete(task.id)}
+                      onEdit={() => openEdit(task)}
+                      onDelete={() => deleteTask(task.id)}
+                    />
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         )}
 
         {list.length > 0 && <DailySummary list={list} />}
