@@ -166,18 +166,18 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
               }}
             />
           )}
-          <span className="text-[24px] font-bold leading-none text-text">
+          <span className="text-[24px] font-extrabold leading-none text-text">
             {dateNum}
           </span>
           <div className="flex flex-col leading-tight">
             <span
-              className="text-[13px] font-semibold"
+              className="text-[15px] font-semibold"
               style={{ color: isToday ? 'var(--teal-light)' : 'var(--color-muted)' }}
             >
               {isToday ? 'Today' : day}
             </span>
             {!isToday && (
-              <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-subtle">
+              <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-subtle">
                 {shortDay}
               </span>
             )}
@@ -248,7 +248,7 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
                       <span style={{ color: 'var(--teal)', fontSize: 10, fontWeight: 800, flexShrink: 0, lineHeight: 1 }}>✓</span>
                     )}
                     <span
-                      className="text-[12px] font-medium truncate"
+                      className="text-[14px] font-semibold truncate"
                       style={{
                         color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)',
                         textDecoration: task.completed ? 'line-through' : 'none',

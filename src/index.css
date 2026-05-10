@@ -74,19 +74,19 @@
 
 /* ── Light mode ───────────────────────────────────────── */
 body.light {
-  --color-app:       #f0efea;
-  --color-panel:     #e8e7e2;
-  --color-panel-alt: #e2e1dc;
-  --color-panel-hi:  #d8d7d2;
+  --color-app:       #d6d5cf;
+  --color-panel:     #cecdc7;
+  --color-panel-alt: #c8c7c1;
+  --color-panel-hi:  #bebdb7;
 
-  --color-border:       #c0bfba;
-  --color-border-hi:    #b0afaa;
+  --color-border:       #aeada7;
+  --color-border-hi:    #9e9d97;
   --color-border-focus: #0a5c52;
 
-  --color-text:     #0f172a;
-  --color-muted:    #1e293b;
-  --color-subtle:   #475569;
-  --color-disabled: #94a3b8;
+  --color-text:     #0a0f1a;
+  --color-muted:    #1a2332;
+  --color-subtle:   #374151;
+  --color-disabled: #6b7280;
 
   --color-accent:         #0a5c52;
   --color-accent-dim:     #084a42;
@@ -103,11 +103,11 @@ body.light {
   --color-danger-surface:  #fef2f2;
   --color-danger-text:     #dc2626;
 
-  --surface-1:     rgba(0,0,0,0.05);
-  --surface-2:     rgba(0,0,0,0.08);
-  --surface-3:     rgba(0,0,0,0.03);
-  --border-subtle: rgba(0,0,0,0.12);
-  --border-medium: rgba(0,0,0,0.15);
+  --surface-1:     rgba(0,0,0,0.07);
+  --surface-2:     rgba(0,0,0,0.10);
+  --surface-3:     rgba(0,0,0,0.04);
+  --border-subtle: rgba(0,0,0,0.20);
+  --border-medium: rgba(0,0,0,0.24);
 
   --teal:         #0a5c52;
   --teal-light:   #0d7a6e;
@@ -118,11 +118,11 @@ body.light {
   --teal-glow:    rgba(10,92,82,0.2);
   --teal-dim-bg:  rgba(10,92,82,0.10);
 
-  --gradient-sidebar:    linear-gradient(180deg, #e2e1dc 0%, #d8d7d2 100%);
-  --gradient-header:     linear-gradient(160deg, #e8e7e2 0%, #e2e1dc 100%);
-  --gradient-modal:      linear-gradient(160deg, #f0efea 0%, #e8e7e2 60%, #e2e1dc 100%);
-  --gradient-ai-panel:   linear-gradient(180deg, #e2e1dc 0%, #d8d7d2 100%);
-  --gradient-onboarding: linear-gradient(180deg, #f0efea 0%, #e8e7e2 100%);
+  --gradient-sidebar:    linear-gradient(180deg, #c8c7c1 0%, #bebdb7 100%);
+  --gradient-header:     linear-gradient(160deg, #cecdc7 0%, #c8c7c1 100%);
+  --gradient-modal:      linear-gradient(160deg, #d6d5cf 0%, #cecdc7 60%, #c8c7c1 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #c8c7c1 0%, #bebdb7 100%);
+  --gradient-onboarding: linear-gradient(180deg, #d6d5cf 0%, #cecdc7 100%);
 
   background-color: var(--color-app);
   background-image:

@@ -59,7 +59,7 @@ export default function DailyView() {
                 color: isActive ? 'var(--teal)' : 'var(--color-subtle)',
               }}
             >
-              <span className="text-[9px] font-bold uppercase tracking-[0.08em]">{SHORT_DAYS[i]}</span>
+              <span className="text-[11px] font-bold uppercase tracking-[0.08em]">{SHORT_DAYS[i]}</span>
               <span
                 className="text-[15px] font-bold leading-tight"
                 style={{ color: isActive ? 'var(--teal)' : isToday ? 'var(--color-text)' : 'var(--color-muted)' }}

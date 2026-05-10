@@ -153,15 +153,15 @@ export function Sidebar({ onClose }) {
         <SectionHeader label="PROGRESS" />
         <div style={{ borderRadius: 12, background: SURFACE, border: '1px solid var(--border-subtle)', padding: '16px 18px', marginBottom: 16 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 12 }}>
-            <span style={{ fontSize: 13, color: 'var(--color-muted)' }}>This week</span>
-            <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-text)', fontFamily: 'monospace' }}>{done}/{total}</span>
+            <span style={{ fontSize: 14, color: 'var(--color-muted)' }}>This week</span>
+            <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-text)', fontFamily: 'monospace' }}>{done}/{total}</span>
           </div>
           <ProgressBar pct={pct} />
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
-            <span style={{ fontSize: 12, color: 'var(--color-subtle)' }}>
+            <span style={{ fontSize: 13, color: 'var(--color-subtle)' }}>
               {total === 0 ? 'No tasks yet' : `${total - done} remaining`}
             </span>
-            <span style={{ fontSize: 13, fontWeight: 700, fontFamily: 'monospace', color: pct === 100 ? 'var(--color-success-text)' : TEAL }}>
+            <span style={{ fontSize: 14, fontWeight: 700, fontFamily: 'monospace', color: pct === 100 ? 'var(--color-success-text)' : TEAL }}>
               {pct}%
             </span>
           </div>
@@ -232,7 +232,7 @@ function SectionHeader({ label }) {
         background: TEAL,
         boxShadow: '0 0 10px var(--teal-glow)',
       }} />
-      <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: TEAL }}>
+      <span style={{ fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.16em', color: TEAL }}>
         {label}
       </span>
     </div>
@@ -289,7 +289,7 @@ function ActionButton({ Icon, label, onClick }) {
         width: '100%', borderRadius: 12, padding: '12px 16px', marginBottom: 10,
         background: TEAL_BG, border: `1px solid ${TEAL_BD}`,
         display: 'flex', alignItems: 'center', gap: 12,
-        fontSize: 14, fontWeight: 600, color: TEAL, cursor: 'pointer',
+        fontSize: 15, fontWeight: 600, color: TEAL, cursor: 'pointer',
       }}
     >
       <div style={{
@@ -326,7 +326,7 @@ function CategoryPill({ id, label, color, Icon, active, locked, onSelect, onDele
       }}>
         <Icon size={16} strokeWidth={2} />
       </div>
-      <span style={{ fontSize: 15, fontWeight: 600, flex: 1, color: active ? 'var(--color-text)' : 'var(--color-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+      <span style={{ fontSize: 16, fontWeight: 600, flex: 1, color: active ? 'var(--color-text)' : 'var(--color-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
         {label}
       </span>
       {!locked && id !== 'all' && onDelete && (
