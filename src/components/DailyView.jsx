@@ -29,7 +29,7 @@ export default function DailyView() {
   const weekDates = getWeekDates();
 
   return (
-    <div className="max-w-2xl mx-auto w-full" style={{ minHeight: '100%' }}>
+    <div className="max-w-2xl mx-auto w-full flex flex-col" style={{ minHeight: '100%' }}>
       {/* Back to week — desktop only */}
       <button
         onClick={() => setView('weekly')}
@@ -103,41 +103,45 @@ export default function DailyView() {
         </div>
       )}
 
-      {/* Task list */}
-      {list.length === 0 ? (
-        <EmptyState
-          day={DAYS[selectedDay]}
-          filterActive={filter !== 'all'}
-          activeCat={activeCat}
-          onAdd={() => { setEditTarget(null); setModal('addTask'); }}
-        />
-      ) : allDone ? (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center py-16"
-        >
-          <div className="text-3xl mb-3 text-success-text">✓</div>
-          <div className="text-[12px] font-semibold uppercase tracking-[0.14em] text-success-text mb-1">
-            All tasks complete
-          </div>
-          <div className="text-[11px] text-subtle">{DAYS[selectedDay]} cleared</div>
-        </motion.div>
-      ) : (
-        <AnimatePresence initial={false} mode="popLayout">
-          {list.map(task => (
-            <TaskCard
-              key={task.id}
-              task={task}
-              cat={getCat(task.category)}
-              conflict={conflicts.has(task.id)}
-              onToggle={() => toggleComplete(task.id)}
-              onEdit={() => openEdit(task)}
-              onDelete={() => deleteTask(task.id)}
-            />
-          ))}
-        </AnimatePresence>
-      )}
+      {/* Content: task list + summary */}
+      <div className="flex flex-col flex-1">
+        {list.length === 0 ? (
+          <EmptyState
+            day={DAYS[selectedDay]}
+            filterActive={filter !== 'all'}
+            activeCat={activeCat}
+            onAdd={() => { setEditTarget(null); setModal('addTask'); }}
+          />
+        ) : allDone ? (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="text-center py-16"
+          >
+            <div className="text-3xl mb-3 text-success-text">✓</div>
+            <div className="text-[12px] font-semibold uppercase tracking-[0.14em] text-success-text mb-1">
+              All tasks complete
+            </div>
+            <div className="text-[11px] text-subtle">{DAYS[selectedDay]} cleared</div>
+          </motion.div>
+        ) : (
+          <AnimatePresence initial={false} mode="popLayout">
+            {list.map(task => (
+              <TaskCard
+                key={task.id}
+                task={task}
+                cat={getCat(task.category)}
+                conflict={conflicts.has(task.id)}
+                onToggle={() => toggleComplete(task.id)}
+                onEdit={() => openEdit(task)}
+                onDelete={() => deleteTask(task.id)}
+              />
+            ))}
+          </AnimatePresence>
+        )}
+
+        {list.length > 0 && <DailySummary list={list} />}
+      </div>
     </div>
   );
 }
@@ -374,4 +378,115 @@ function getWeekDates() {
     d.setDate(monday.getDate() + i);
     return d.getDate();
   });
+}
+
+function daysUntil(dateStr) {
+  if (!dateStr) return null;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(dateStr + 'T00:00:00');
+  return Math.round((due - today) / (1000 * 60 * 60 * 24));
+}
+
+function calcScore(task) {
+  const w = parseFloat(task.gradeWeight);
+  if (!w) return 0;
+  const d = daysUntil(task.dueDate);
+  if (d === null) return w;
+  if (d <= 0) return w * 10;
+  return w / d;
+}
+
+function DailySummary({ list }) {
+  const incomplete  = list.filter(t => !t.completed);
+  const remaining   = incomplete.length;
+  const totalEstH   = list.reduce((sum, t) => sum + (parseFloat(t.estimatedHours) || 0), 0);
+  const completePct = Math.round((list.filter(t => t.completed).length / list.length) * 100);
+
+  const hasWeights = incomplete.some(t => parseFloat(t.gradeWeight) > 0);
+  let topTask = null;
+  let topBadge = 'Focus on this first';
+
+  if (incomplete.length > 0) {
+    if (hasWeights) {
+      topTask = incomplete.reduce((best, t) => calcScore(t) > calcScore(best) ? t : best, incomplete[0]);
+    } else {
+      const withDue = incomplete.filter(t => t.dueDate);
+      if (withDue.length > 0) {
+        topTask = withDue.reduce((best, t) => t.dueDate < best.dueDate ? t : best, withDue[0]);
+        topBadge = 'Due soonest';
+      }
+    }
+  }
+
+  const motivational =
+    remaining === 0 ? 'Nothing left — enjoy the free time.'
+    : remaining <= 2 ? 'Light day ahead. You got this.'
+    : remaining <= 4 ? 'Solid workload. Stay focused.'
+    : 'Heavy day. Take it one task at a time.';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+      style={{
+        borderRadius: 12,
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid var(--border-subtle)',
+        borderLeft: '3px solid var(--teal)',
+        padding: '14px 16px',
+        marginTop: 24,
+      }}
+    >
+      {topTask && (
+        <div style={{ marginBottom: 12 }}>
+          <div style={{ marginBottom: 5 }}>
+            <span style={{
+              fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: 'var(--teal)', padding: '2px 8px', borderRadius: 9999,
+              background: 'rgba(20,184,166,0.12)', border: '1px solid rgba(20,184,166,0.3)',
+            }}>
+              {topBadge}
+            </span>
+          </div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text)', lineHeight: 1.3 }}>
+            {topTask.title}
+          </div>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+        <StatPill label="Remaining" value={remaining} />
+        <StatPill label="Est. hours" value={totalEstH > 0 ? `${Math.round(totalEstH * 10) / 10}h` : '—'} />
+        <StatPill label="Done" value={`${completePct}%`} />
+      </div>
+
+      <p style={{ fontSize: 11, color: 'var(--color-subtle)', marginTop: 10, lineHeight: 1.5 }}>
+        {motivational}
+      </p>
+    </motion.div>
+  );
+}
+
+function StatPill({ label, value }) {
+  return (
+    <div style={{
+      display: 'flex', flexDirection: 'column', alignItems: 'center',
+      padding: '5px 14px', borderRadius: 9999,
+      background: 'var(--surface-2)',
+      border: '1px solid var(--border-subtle)',
+      minWidth: 64,
+    }}>
+      <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text)', lineHeight: 1.2 }}>
+        {value}
+      </span>
+      <span style={{
+        fontSize: 9, fontWeight: 600, textTransform: 'uppercase',
+        letterSpacing: '0.08em', color: 'var(--color-subtle)', marginTop: 2,
+      }}>
+        {label}
+      </span>
+    </div>
+  );
 }
