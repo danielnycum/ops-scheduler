@@ -106,12 +106,14 @@ export default function DailyView() {
       {/* Content: task list + summary */}
       <div className="flex flex-col flex-1">
         {list.length === 0 ? (
-          <EmptyState
-            day={DAYS[selectedDay]}
-            filterActive={filter !== 'all'}
-            activeCat={activeCat}
-            onAdd={() => { setEditTarget(null); setModal('addTask'); }}
-          />
+          <div className="flex flex-1 items-center justify-center">
+            <EmptyState
+              day={DAYS[selectedDay]}
+              filterActive={filter !== 'all'}
+              activeCat={activeCat}
+              onAdd={() => { setEditTarget(null); setModal('addTask'); }}
+            />
+          </div>
         ) : allDone ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
