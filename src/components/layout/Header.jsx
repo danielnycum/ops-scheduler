@@ -211,7 +211,7 @@ export function Header({ onMenuClick, isMobile }) {
           onClick={() => {
             document.body.classList.add('theme-switching');
             setTheme(t => t === 'dark' ? 'light' : 'dark');
-            setTimeout(() => document.body.classList.remove('theme-switching'), 600);
+            setTimeout(() => document.body.classList.remove('theme-switching'), 300);
           }}
           title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
           style={{

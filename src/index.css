@@ -74,19 +74,19 @@
 
 /* ── Light mode ───────────────────────────────────────── */
 body.light {
-  --color-app:       #e8e8e0;
-  --color-panel:     #deded6;
-  --color-panel-alt: #d4d4cc;
-  --color-panel-hi:  #cacac2;
+  --color-app:       #f0efea;
+  --color-panel:     #e8e7e2;
+  --color-panel-alt: #e2e1dc;
+  --color-panel-hi:  #d8d7d2;
 
-  --color-border:       #b8b8b0;
-  --color-border-hi:    #a8a8a0;
+  --color-border:       #c0bfba;
+  --color-border-hi:    #b0afaa;
   --color-border-focus: #0a5c52;
 
   --color-text:     #0f172a;
-  --color-muted:    #374151;
-  --color-subtle:   #6b7280;
-  --color-disabled: #9ca3af;
+  --color-muted:    #1e293b;
+  --color-subtle:   #475569;
+  --color-disabled: #94a3b8;
 
   --color-accent:         #0a5c52;
   --color-accent-dim:     #084a42;
@@ -106,23 +106,23 @@ body.light {
   --surface-1:     rgba(0,0,0,0.05);
   --surface-2:     rgba(0,0,0,0.08);
   --surface-3:     rgba(0,0,0,0.03);
-  --border-subtle: rgba(0,0,0,0.10);
-  --border-medium: rgba(0,0,0,0.14);
+  --border-subtle: rgba(0,0,0,0.12);
+  --border-medium: rgba(0,0,0,0.15);
 
   --teal:         #0a5c52;
   --teal-light:   #0d7a6e;
   --teal-dark:    #084a42;
   --teal-deeper:  #063830;
-  --teal-surface: rgba(10,92,82,0.08);
-  --teal-border:  rgba(10,92,82,0.3);
+  --teal-surface: rgba(10,92,82,0.15);
+  --teal-border:  rgba(10,92,82,0.4);
   --teal-glow:    rgba(10,92,82,0.2);
-  --teal-dim-bg:  rgba(10,92,82,0.06);
+  --teal-dim-bg:  rgba(10,92,82,0.10);
 
-  --gradient-sidebar:    linear-gradient(180deg, #d4d4cc 0%, #cacac2 100%);
-  --gradient-header:     linear-gradient(160deg, #deded6 0%, #d4d4cc 100%);
-  --gradient-modal:      linear-gradient(160deg, #e8e8e0 0%, #deded6 60%, #d4d4cc 100%);
-  --gradient-ai-panel:   linear-gradient(180deg, #d4d4cc 0%, #cacac2 100%);
-  --gradient-onboarding: linear-gradient(180deg, #e8e8e0 0%, #deded6 100%);
+  --gradient-sidebar:    linear-gradient(180deg, #e2e1dc 0%, #d8d7d2 100%);
+  --gradient-header:     linear-gradient(160deg, #e8e7e2 0%, #e2e1dc 100%);
+  --gradient-modal:      linear-gradient(160deg, #f0efea 0%, #e8e7e2 60%, #e2e1dc 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #e2e1dc 0%, #d8d7d2 100%);
+  --gradient-onboarding: linear-gradient(180deg, #f0efea 0%, #e8e7e2 100%);
 
   background-color: var(--color-app);
   background-image:
@@ -181,7 +181,7 @@ body.theme-switching,
 body.theme-switching *,
 body.theme-switching *::before,
 body.theme-switching *::after {
-  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease !important;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
