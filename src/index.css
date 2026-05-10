@@ -74,60 +74,60 @@
 
 /* ── Light mode ───────────────────────────────────────── */
 body.light {
-  --color-app:       #f5f5f0;
-  --color-panel:     #efefea;
-  --color-panel-alt: #e8e8e2;
-  --color-panel-hi:  #deded8;
+  --color-app:       #e8e8e0;
+  --color-panel:     #deded6;
+  --color-panel-alt: #d4d4cc;
+  --color-panel-hi:  #cacac2;
 
-  --color-border:       #d8d8d0;
-  --color-border-hi:    #c8c8c0;
-  --color-border-focus: #0f766e;
+  --color-border:       #b8b8b0;
+  --color-border-hi:    #a8a8a0;
+  --color-border-focus: #0a5c52;
 
   --color-text:     #0f172a;
-  --color-muted:    #1e293b;
-  --color-subtle:   #64748b;
-  --color-disabled: #94a3b8;
+  --color-muted:    #374151;
+  --color-subtle:   #6b7280;
+  --color-disabled: #9ca3af;
 
-  --color-accent:         #0f766e;
-  --color-accent-dim:     #115e59;
-  --color-accent-text:    #0f766e;
-  --color-accent-surface: #ccfbf1;
+  --color-accent:         #0a5c52;
+  --color-accent-dim:     #084a42;
+  --color-accent-text:    #0a5c52;
+  --color-accent-surface: #ccf0ec;
 
-  --color-ai:         #0f766e;
-  --color-ai-dim:     #115e59;
-  --color-ai-text:    #0f766e;
-  --color-ai-surface: #ccfbf1;
+  --color-ai:         #0a5c52;
+  --color-ai-dim:     #084a42;
+  --color-ai-text:    #0a5c52;
+  --color-ai-surface: #ccf0ec;
 
   --color-success-surface: #f0fdf4;
   --color-warn-surface:    #fffbeb;
   --color-danger-surface:  #fef2f2;
   --color-danger-text:     #dc2626;
 
-  --surface-1:     rgba(0,0,0,0.04);
-  --surface-2:     rgba(0,0,0,0.07);
-  --surface-3:     rgba(0,0,0,0.02);
-  --border-subtle: rgba(0,0,0,0.08);
-  --border-medium: rgba(0,0,0,0.13);
+  --surface-1:     rgba(0,0,0,0.05);
+  --surface-2:     rgba(0,0,0,0.08);
+  --surface-3:     rgba(0,0,0,0.03);
+  --border-subtle: rgba(0,0,0,0.10);
+  --border-medium: rgba(0,0,0,0.14);
 
-  --teal:         #0f766e;
-  --teal-light:   #0d9488;
-  --teal-dark:    #115e59;
-  --teal-deeper:  #134e4a;
-  --teal-surface: rgba(15,118,110,0.08);
-  --teal-border:  rgba(15,118,110,0.3);
-  --teal-glow:    rgba(15,118,110,0.2);
-  --teal-dim-bg:  rgba(15,118,110,0.06);
+  --teal:         #0a5c52;
+  --teal-light:   #0d7a6e;
+  --teal-dark:    #084a42;
+  --teal-deeper:  #063830;
+  --teal-surface: rgba(10,92,82,0.08);
+  --teal-border:  rgba(10,92,82,0.3);
+  --teal-glow:    rgba(10,92,82,0.2);
+  --teal-dim-bg:  rgba(10,92,82,0.06);
 
-  --gradient-sidebar:    linear-gradient(180deg, #e8e8e2 0%, #deded8 100%);
-  --gradient-header:     linear-gradient(160deg, #efefea 0%, #e8e8e2 100%);
-  --gradient-modal:      linear-gradient(160deg, #f5f5f0 0%, #efefea 60%, #e8e8e2 100%);
-  --gradient-ai-panel:   linear-gradient(180deg, #e8e8e2 0%, #deded8 100%);
-  --gradient-onboarding: linear-gradient(180deg, #f5f5f0 0%, #efefea 100%);
+  --gradient-sidebar:    linear-gradient(180deg, #d4d4cc 0%, #cacac2 100%);
+  --gradient-header:     linear-gradient(160deg, #deded6 0%, #d4d4cc 100%);
+  --gradient-modal:      linear-gradient(160deg, #e8e8e0 0%, #deded6 60%, #d4d4cc 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #d4d4cc 0%, #cacac2 100%);
+  --gradient-onboarding: linear-gradient(180deg, #e8e8e0 0%, #deded6 100%);
 
   background-color: var(--color-app);
   background-image:
-    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(15,118,110,0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(15,118,110,0.04) 0%, transparent 55%);
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(10,92,82,0.04) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(10,92,82,0.03) 0%, transparent 55%);
 }
 
 /* ── Reset ───────────────────────────────────────────── */
@@ -181,7 +181,7 @@ body.theme-switching,
 body.theme-switching *,
 body.theme-switching *::before,
 body.theme-switching *::after {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
