@@ -106,7 +106,7 @@ export default function DailyView() {
       {/* Content: task list + summary */}
       <div className="flex flex-col flex-1">
         {list.length === 0 ? (
-          <div className="flex flex-1 items-center justify-center">
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', minHeight: 400 }}>
             <EmptyState
               day={DAYS[selectedDay]}
               filterActive={filter !== 'all'}
@@ -339,7 +339,7 @@ function EmptyState({ day, filterActive, activeCat, onAdd }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="text-center py-20 max-w-xs mx-auto"
+      className="text-center max-w-xs mx-auto"
     >
       <div className="text-4xl mb-5 opacity-10 select-none">◫</div>
 
