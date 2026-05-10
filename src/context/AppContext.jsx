@@ -237,6 +237,7 @@ export function AppProvider({ children }) {
         day,
         startTime:      '09:00',
         endTime:        '10:00',
+        allDay:         true,
         notes:          '',
         completed:      false,
         gradeWeight:    item.gradeWeight || null,

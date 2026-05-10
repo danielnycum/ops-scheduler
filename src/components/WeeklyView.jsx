@@ -253,7 +253,7 @@ function DayRow({ day, shortDay, dateNum, dayIdx, isToday, position, list, hasCo
                     <PriorityBadge task={task} />
                   </div>
                   <span className="text-[10px] font-mono mt-0.5 block text-subtle">
-                    {task.startTime}
+                    {task.allDay ? 'All day' : task.startTime}
                   </span>
                 </div>
               );

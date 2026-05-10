@@ -1,8 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Pencil, Trash2, AlertTriangle, ArrowLeft } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
-import { Tag } from './ui/Tag';
 import { Button } from './ui/Button';
 import { DAYS, SHORT_DAYS } from '../lib/constants';
 import { getCategoryById, todayIdx } from '../lib/utils';
@@ -20,14 +19,14 @@ export default function DailyView() {
 
   const list = tasks
     .filter(t => t.day === selectedDay && (filter === 'all' || t.category === filter))
-    .sort((a,b) => a.startTime.localeCompare(b.startTime));
+    .sort((a, b) => a.startTime.localeCompare(b.startTime));
 
   const dayConflict = list.some(t => conflicts.has(t.id));
   const allDone     = list.length > 0 && list.every(t => t.completed);
 
-  const activeCat  = filter !== 'all' ? getCat(filter) : null;
-  const today      = todayIdx();
-  const weekDates  = getWeekDates();
+  const activeCat = filter !== 'all' ? getCat(filter) : null;
+  const today     = todayIdx();
+  const weekDates = getWeekDates();
 
   return (
     <div className="max-w-2xl mx-auto w-full">
@@ -41,7 +40,7 @@ export default function DailyView() {
       </button>
 
       {/* Mobile day picker */}
-      <div className="flex md:hidden overflow-x-auto gap-1 mb-4 pb-0.5 scrollbar-none">
+      <div className="flex md:hidden overflow-x-auto gap-1 mb-4 pb-0.5">
         {DAYS.map((day, i) => {
           const isActive = i === selectedDay;
           const isToday  = i === today;
@@ -52,9 +51,7 @@ export default function DailyView() {
               className="flex-shrink-0 flex flex-col items-center gap-0.5 px-3 py-2 rounded-xl transition-all duration-150 min-w-[3rem]"
               style={{
                 background: isActive ? 'rgba(20,184,166,0.15)' : 'var(--surface-1)',
-                border: isActive
-                  ? '1px solid rgba(20,184,166,0.4)'
-                  : '1px solid var(--border-subtle)',
+                border: isActive ? '1px solid rgba(20,184,166,0.4)' : '1px solid var(--border-subtle)',
                 color: isActive ? 'var(--teal)' : 'var(--color-subtle)',
               }}
             >
@@ -66,10 +63,7 @@ export default function DailyView() {
                 {weekDates[i]}
               </span>
               {isToday && (
-                <span
-                  className="w-1 h-1 rounded-full mt-0.5"
-                  style={{ background: 'var(--teal)' }}
-                />
+                <span className="w-1 h-1 rounded-full mt-0.5" style={{ background: 'var(--teal)' }} />
               )}
             </button>
           );
@@ -116,7 +110,6 @@ export default function DailyView() {
           filterActive={filter !== 'all'}
           activeCat={activeCat}
           onAdd={() => { setEditTarget(null); setModal('addTask'); }}
-          onClearFilter={() => {}}
         />
       ) : allDone ? (
         <motion.div
@@ -150,14 +143,10 @@ export default function DailyView() {
 }
 
 function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
-  const [hovered, setHovered]     = useState(false);
+  const [hovered, setHovered]       = useState(false);
   const [confirmDel, setConfirmDel] = useState(false);
 
-  const borderLeft = conflict
-    ? '#f87171'
-    : task.completed
-    ? 'var(--color-border)'
-    : cat.color;
+  const borderColor = conflict ? '#f87171' : task.completed ? 'var(--border-subtle)' : 'var(--teal)';
 
   return (
     <motion.div
@@ -171,39 +160,45 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
       onMouseLeave={() => { setHovered(false); setConfirmDel(false); }}
     >
       <div
-        className="rounded-lg px-4 py-3 mb-2 transition-colors duration-150 cursor-pointer"
         onClick={onEdit}
         style={{
-          background: task.completed
+          borderRadius: 12,
+          padding: '12px 16px',
+          marginBottom: 10,
+          background: conflict
+            ? 'rgba(239,68,68,0.04)'
+            : task.completed
             ? 'var(--surface-3)'
-            : conflict
-            ? 'rgba(239,68,68,0.06)'
             : 'var(--surface-1)',
-          border: `1px solid ${conflict ? 'rgba(239,68,68,0.2)' : 'var(--border-subtle)'}`,
-          borderLeft: `3px solid ${borderLeft}`,
-          opacity: task.completed ? 0.5 : 1,
+          border: '1px solid var(--border-subtle)',
+          borderLeft: `3px solid ${borderColor}`,
+          opacity: task.completed ? 0.6 : 1,
+          cursor: 'pointer',
+          transition: 'border-color 0.15s, background 0.15s',
         }}
       >
-        <div className="flex items-start gap-3">
-          {/* Checkbox */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+
+          {/* Checkbox — teal rounded square */}
           <motion.button
             onClick={e => { e.stopPropagation(); onToggle(); }}
-            whileTap={{ scale: 1.25 }}
+            whileTap={{ scale: 1.2 }}
             transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-            className="mt-0.5 w-4 h-4 rounded flex-shrink-0 flex items-center justify-center border transition-colors duration-150 cursor-pointer"
-            style={{
-              border: `1px solid ${task.completed ? '#22c55e' : 'var(--color-border-hi)'}`,
-              background: task.completed ? '#14532d' : 'transparent',
-              color: '#4ade80',
-            }}
             aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
+            style={{
+              width: 20, height: 20, borderRadius: 6, flexShrink: 0, marginTop: 2,
+              border: task.completed ? 'none' : `2px solid ${conflict ? '#f87171' : 'var(--teal)'}`,
+              background: task.completed ? 'var(--teal)' : 'transparent',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', transition: 'all 0.15s',
+            }}
           >
             {task.completed && (
               <motion.span
-                initial={{ scale: 0.4, opacity: 0 }}
+                initial={{ scale: 0.3, opacity: 0 }}
                 animate={{ scale: 1,   opacity: 1 }}
-                transition={{ duration: 0.12, ease: [0.34, 1.56, 0.64, 1] }}
-                className="text-[10px] leading-none font-bold"
+                transition={{ duration: 0.15, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{ color: 'white', fontSize: 11, fontWeight: 800, lineHeight: 1 }}
               >
                 ✓
               </motion.span>
@@ -211,12 +206,16 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
           </motion.button>
 
           {/* Content */}
-          <div className="flex-1 min-w-0">
-            <div className="relative inline-block max-w-full">
-              <span
-                className="text-[13px] font-semibold leading-tight block truncate"
-                style={{ color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)' }}
-              >
+          <div style={{ flex: 1, minWidth: 0 }}>
+
+            {/* Title with strikethrough on complete */}
+            <div style={{ position: 'relative', display: 'inline-block', maxWidth: '100%' }}>
+              <span style={{
+                fontSize: 15, fontWeight: 700, lineHeight: 1.3,
+                color: task.completed ? 'var(--color-subtle)' : 'var(--color-text)',
+                display: 'block',
+                overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+              }}>
                 {task.title}
               </span>
               {task.completed && (
@@ -224,48 +223,66 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
-                  className="absolute top-1/2 left-0 right-0 h-px bg-subtle"
-                  style={{ transformOrigin: 'left center' }}
+                  style={{
+                    position: 'absolute', top: '50%', left: 0, right: 0,
+                    height: 1, background: 'var(--color-subtle)',
+                    transformOrigin: 'left center',
+                  }}
                 />
               )}
             </div>
 
-            <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
-              <span className="text-[11px] font-mono text-subtle">
-                {task.startTime} – {task.endTime}
+            {/* Time + badges */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 6, marginTop: 5 }}>
+              <span style={{ fontSize: 11, fontFamily: 'monospace', color: 'var(--color-subtle)' }}>
+                {task.allDay ? 'All day' : `${task.startTime} – ${task.endTime}`}
               </span>
-              <Tag color={cat.color} bg={`${cat.color}18`}>
+
+              {/* Course badge */}
+              <span style={{
+                fontSize: 10, fontWeight: 600,
+                padding: '2px 7px', borderRadius: 9999,
+                background: `${cat.color}18`,
+                color: cat.color,
+                border: `1px solid ${cat.color}40`,
+              }}>
                 {cat.icon} {cat.label}
-              </Tag>
+              </span>
+
+              {/* Conflict pill */}
               {conflict && (
-                <Tag color="#f87171" bg="rgba(239,68,68,0.1)" border="rgba(239,68,68,0.35)">
-                  <AlertTriangle size={9} strokeWidth={2.5} />
-                  Conflict
-                </Tag>
+                <span style={{
+                  display: 'inline-flex', alignItems: 'center', gap: 3,
+                  fontSize: 10, fontWeight: 700,
+                  padding: '2px 7px', borderRadius: 9999,
+                  background: 'rgba(239,68,68,0.12)',
+                  border: '1px solid rgba(239,68,68,0.35)',
+                  color: '#f87171',
+                }}>
+                  ⚠ Conflict
+                </span>
               )}
             </div>
 
             {task.notes && (
-              <p className="text-[11px] text-subtle mt-2 leading-relaxed">{task.notes}</p>
+              <p style={{ fontSize: 11, color: 'var(--color-subtle)', marginTop: 7, lineHeight: 1.5 }}>
+                {task.notes}
+              </p>
             )}
           </div>
 
-          {/* Actions */}
+          {/* Action buttons */}
           <motion.div
-            className="flex items-center gap-1 flex-shrink-0"
             animate={{ opacity: hovered ? 1 : 0 }}
             transition={{ duration: 0.15 }}
             onClick={e => e.stopPropagation()}
+            style={{ display: 'flex', alignItems: 'center', gap: 2, flexShrink: 0 }}
           >
             {confirmDel ? (
-              <div className="flex items-center gap-1.5">
-                <span className="text-[10px] text-danger-text font-medium">Delete?</span>
-                <Button variant="danger" onClick={onDelete} className="text-[10px] px-2 py-1">
-                  Yes
-                </Button>
-                <Button onClick={() => setConfirmDel(false)} className="text-[10px] px-2 py-1">
-                  No
-                </Button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span style={{ fontSize: 10, color: '#f87171', fontWeight: 600 }}>Delete?</span>
+                <Button variant="danger" onClick={onDelete} className="text-[10px] px-2 py-1">Yes</Button>
+                <Button onClick={() => setConfirmDel(false)} className="text-[10px] px-2 py-1">No</Button>
               </div>
             ) : (
               <>
@@ -274,8 +291,14 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   title="Edit task"
-                  aria-label="Edit task"
-                  className="w-7 h-7 flex items-center justify-center rounded-md text-subtle hover:text-accent-text hover:bg-panel-hi border border-transparent hover:border-border transition-all duration-150"
+                  style={{
+                    width: 28, height: 28, borderRadius: 8,
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--color-subtle)',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--teal)'; e.currentTarget.style.background = 'var(--teal-surface)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-subtle)'; e.currentTarget.style.background = 'none'; }}
                 >
                   <Pencil size={13} />
                 </motion.button>
@@ -284,8 +307,14 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.9 }}
                   title="Delete task"
-                  aria-label="Delete task"
-                  className="w-7 h-7 flex items-center justify-center rounded-md text-subtle hover:text-danger-text hover:bg-danger-surface border border-transparent hover:border-[rgba(127,29,29,0.4)] transition-all duration-150"
+                  style={{
+                    width: 28, height: 28, borderRadius: 8,
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'var(--color-subtle)',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.color = '#f87171'; e.currentTarget.style.background = 'rgba(239,68,68,0.1)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.color = 'var(--color-subtle)'; e.currentTarget.style.background = 'none'; }}
                 >
                   <Trash2 size={13} />
                 </motion.button>
@@ -336,9 +365,9 @@ function EmptyState({ day, filterActive, activeCat, onAdd }) {
 }
 
 function getWeekDates() {
-  const now     = new Date();
-  const js      = now.getDay();
-  const monday  = new Date(now);
+  const now    = new Date();
+  const js     = now.getDay();
+  const monday = new Date(now);
   monday.setDate(now.getDate() - (js === 0 ? 6 : js - 1));
   return Array.from({ length: 7 }, (_, i) => {
     const d = new Date(monday);

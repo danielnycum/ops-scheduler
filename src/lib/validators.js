@@ -3,7 +3,8 @@ import { toMin } from './utils';
 export function findConflicts(tasks) {
   const ids = new Set();
   const byDay = {};
-  tasks.forEach(t => (byDay[t.day] = byDay[t.day] || []).push(t));
+  // Skip all-day tasks — they have no specific time slot and can't conflict
+  tasks.filter(t => !t.allDay).forEach(t => (byDay[t.day] = byDay[t.day] || []).push(t));
   Object.values(byDay).forEach(group => {
     const sorted = [...group].sort((a,b) => toMin(a.startTime) - toMin(b.startTime));
     for (let i = 0; i < sorted.length; i++) {
