@@ -109,6 +109,7 @@ export default function App() {
                     animate={{ opacity: 1,  x: 0  }}
                     exit={{    opacity: 0,  x: 12  }}
                     transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                    className="h-full"
                   >
                     <DailyView />
                   </motion.div>
