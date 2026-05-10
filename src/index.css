@@ -74,19 +74,19 @@
 
 /* ── Light mode ───────────────────────────────────────── */
 body.light {
-  --color-app:       #d6d5cf;
-  --color-panel:     #cecdc7;
-  --color-panel-alt: #c8c7c1;
-  --color-panel-hi:  #bebdb7;
+  --color-app:       #c8c7be;
+  --color-panel:     #bebdb4;
+  --color-panel-alt: #b8b7ae;
+  --color-panel-hi:  #aeada4;
 
-  --color-border:       #aeada7;
-  --color-border-hi:    #9e9d97;
+  --color-border:       #a0a097;
+  --color-border-hi:    #909087;
   --color-border-focus: #0a5c52;
 
-  --color-text:     #0a0f1a;
-  --color-muted:    #1a2332;
-  --color-subtle:   #374151;
-  --color-disabled: #6b7280;
+  --color-text:     #080d16;
+  --color-muted:    #111827;
+  --color-subtle:   #1e2d3d;
+  --color-disabled: #4b5563;
 
   --color-accent:         #0a5c52;
   --color-accent-dim:     #084a42;
@@ -98,33 +98,33 @@ body.light {
   --color-ai-text:    #0a5c52;
   --color-ai-surface: #ccf0ec;
 
-  --color-success-surface: #f0fdf4;
-  --color-warn-surface:    #fffbeb;
-  --color-danger-surface:  #fef2f2;
-  --color-danger-text:     #dc2626;
+  --color-success-surface: #d1fae5;
+  --color-warn-surface:    #fef3c7;
+  --color-danger-surface:  #fee2e2;
+  --color-danger-text:     #b91c1c;
 
-  --surface-1:     rgba(0,0,0,0.07);
-  --surface-2:     rgba(0,0,0,0.10);
-  --surface-3:     rgba(0,0,0,0.04);
-  --border-subtle: rgba(0,0,0,0.20);
-  --border-medium: rgba(0,0,0,0.24);
+  --surface-1:     rgba(0,0,0,0.10);
+  --surface-2:     rgba(0,0,0,0.14);
+  --surface-3:     rgba(0,0,0,0.06);
+  --border-subtle: rgba(0,0,0,0.25);
+  --border-medium: rgba(0,0,0,0.30);
 
   --teal:         #0a5c52;
   --teal-light:   #0d7a6e;
   --teal-dark:    #084a42;
   --teal-deeper:  #063830;
-  --teal-surface: rgba(10,92,82,0.15);
-  --teal-border:  rgba(10,92,82,0.4);
-  --teal-glow:    rgba(10,92,82,0.2);
-  --teal-dim-bg:  rgba(10,92,82,0.10);
+  --teal-surface: rgba(10,92,82,0.18);
+  --teal-border:  rgba(10,92,82,0.45);
+  --teal-glow:    rgba(10,92,82,0.25);
+  --teal-dim-bg:  rgba(10,92,82,0.12);
 
-  --gradient-sidebar:    linear-gradient(180deg, #c8c7c1 0%, #bebdb7 100%);
-  --gradient-header:     linear-gradient(160deg, #cecdc7 0%, #c8c7c1 100%);
-  --gradient-modal:      linear-gradient(160deg, #d6d5cf 0%, #cecdc7 60%, #c8c7c1 100%);
-  --gradient-ai-panel:   linear-gradient(180deg, #c8c7c1 0%, #bebdb7 100%);
-  --gradient-onboarding: linear-gradient(180deg, #d6d5cf 0%, #cecdc7 100%);
+  --gradient-sidebar:    linear-gradient(180deg, #b8b7ae 0%, #aeada4 100%);
+  --gradient-header:     linear-gradient(160deg, #bebdb4 0%, #b8b7ae 100%);
+  --gradient-modal:      linear-gradient(160deg, #c8c7be 0%, #bebdb4 60%, #b8b7ae 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #b8b7ae 0%, #aeada4 100%);
+  --gradient-onboarding: linear-gradient(180deg, #c8c7be 0%, #bebdb4 100%);
 
-  background-color: var(--color-app);
+  background-color: #c8c7be !important;
   background-image:
     radial-gradient(ellipse 70% 50% at 0% 0%, rgba(10,92,82,0.04) 0%, transparent 65%),
     radial-gradient(ellipse 50% 40% at 100% 100%, rgba(10,92,82,0.03) 0%, transparent 55%);
