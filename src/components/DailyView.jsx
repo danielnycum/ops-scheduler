@@ -168,7 +168,7 @@ export default function DailyView() {
                 fontSize: 11, fontWeight: 700, textTransform: 'uppercase',
                 letterSpacing: '0.1em', color: 'var(--color-subtle)',
               }}>
-                Completed ({completedTasks.length})
+                {allDone ? 'View Completed Tasks' : `Completed (${completedTasks.length})`}
               </span>
             </button>
 
@@ -300,6 +300,11 @@ function TaskCard({ task, cat, conflict, onToggle, onEdit, onDelete }) {
               <span style={{ fontSize: 11, fontFamily: 'monospace', color: 'var(--color-subtle)' }}>
                 {task.allDay ? 'All day' : `${task.startTime} – ${task.endTime}`}
               </span>
+              {task.completedAt && (
+                <span style={{ fontSize: 11, fontFamily: 'monospace', color: 'var(--teal)', opacity: 0.7 }}>
+                  ✓ {new Date(task.completedAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
+                </span>
+              )}
 
               {/* Course badge */}
               <span style={{

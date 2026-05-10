@@ -74,28 +74,28 @@
 
 /* ── Light mode ───────────────────────────────────────── */
 body.light {
-  --color-app:       #f0fdfa;
-  --color-panel:     #ffffff;
-  --color-panel-alt: #f1f5f9;
-  --color-panel-hi:  #e2e8f0;
+  --color-app:       #f5f5f0;
+  --color-panel:     #efefea;
+  --color-panel-alt: #e8e8e2;
+  --color-panel-hi:  #deded8;
 
-  --color-border:       #e0f2f1;
-  --color-border-hi:    #b2dfdb;
-  --color-border-focus: #0d9488;
+  --color-border:       #d8d8d0;
+  --color-border-hi:    #c8c8c0;
+  --color-border-focus: #0f766e;
 
   --color-text:     #0f172a;
-  --color-muted:    #334155;
+  --color-muted:    #1e293b;
   --color-subtle:   #64748b;
   --color-disabled: #94a3b8;
 
-  --color-accent:         #0d9488;
-  --color-accent-dim:     #0f766e;
-  --color-accent-text:    #0d9488;
+  --color-accent:         #0f766e;
+  --color-accent-dim:     #115e59;
+  --color-accent-text:    #0f766e;
   --color-accent-surface: #ccfbf1;
 
-  --color-ai:         #0d9488;
-  --color-ai-dim:     #0f766e;
-  --color-ai-text:    #0d9488;
+  --color-ai:         #0f766e;
+  --color-ai-dim:     #115e59;
+  --color-ai-text:    #0f766e;
   --color-ai-surface: #ccfbf1;
 
   --color-success-surface: #f0fdf4;
@@ -107,27 +107,27 @@ body.light {
   --surface-2:     rgba(0,0,0,0.07);
   --surface-3:     rgba(0,0,0,0.02);
   --border-subtle: rgba(0,0,0,0.08);
-  --border-medium: rgba(0,0,0,0.12);
+  --border-medium: rgba(0,0,0,0.13);
 
-  --teal:         #0d9488;
-  --teal-light:   #14b8a6;
-  --teal-dark:    #0f766e;
-  --teal-deeper:  #115e59;
-  --teal-surface: rgba(13,148,136,0.08);
-  --teal-border:  rgba(13,148,136,0.3);
-  --teal-glow:    rgba(13,148,136,0.2);
-  --teal-dim-bg:  rgba(13,148,136,0.06);
+  --teal:         #0f766e;
+  --teal-light:   #0d9488;
+  --teal-dark:    #115e59;
+  --teal-deeper:  #134e4a;
+  --teal-surface: rgba(15,118,110,0.08);
+  --teal-border:  rgba(15,118,110,0.3);
+  --teal-glow:    rgba(15,118,110,0.2);
+  --teal-dim-bg:  rgba(15,118,110,0.06);
 
-  --gradient-sidebar:    linear-gradient(180deg, #f0fdfa 0%, #ccfbf1 100%);
-  --gradient-header:     linear-gradient(160deg, #f0fdfa 0%, #e0fdf4 100%);
-  --gradient-modal:      linear-gradient(160deg, #ffffff 0%, #f0fdfa 60%, #ccfbf1 100%);
-  --gradient-ai-panel:   linear-gradient(180deg, #f0fdfa 0%, #ccfbf1 100%);
-  --gradient-onboarding: linear-gradient(180deg, #f0fdfa 0%, #ccfbf1 100%);
+  --gradient-sidebar:    linear-gradient(180deg, #e8e8e2 0%, #deded8 100%);
+  --gradient-header:     linear-gradient(160deg, #efefea 0%, #e8e8e2 100%);
+  --gradient-modal:      linear-gradient(160deg, #f5f5f0 0%, #efefea 60%, #e8e8e2 100%);
+  --gradient-ai-panel:   linear-gradient(180deg, #e8e8e2 0%, #deded8 100%);
+  --gradient-onboarding: linear-gradient(180deg, #f5f5f0 0%, #efefea 100%);
 
   background-color: var(--color-app);
   background-image:
-    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(20,184,166,0.07) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(13,148,136,0.05) 0%, transparent 55%);
+    radial-gradient(ellipse 70% 50% at 0% 0%, rgba(15,118,110,0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 100% 100%, rgba(15,118,110,0.04) 0%, transparent 55%);
 }
 
 /* ── Reset ───────────────────────────────────────────── */
@@ -174,6 +174,14 @@ body.light input:focus, body.light select:focus, body.light textarea:focus {
 @keyframes conflictPulse {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0.55; }
+}
+
+/* ── Smooth theme switching ──────────────────────────── */
+body.theme-switching,
+body.theme-switching *,
+body.theme-switching *::before,
+body.theme-switching *::after {
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

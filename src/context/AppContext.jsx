@@ -119,7 +119,11 @@ export function AppProvider({ children }) {
   }, [tasks, setTasks, push]);
 
   const toggleComplete = useCallback((id) => {
-    setTasks(p => p.map(t => t.id === id ? { ...t, completed: !t.completed } : t));
+    setTasks(p => p.map(t => {
+      if (t.id !== id) return t;
+      const completed = !t.completed;
+      return { ...t, completed, completedAt: completed ? Date.now() : null };
+    }));
   }, [setTasks]);
 
   const openEdit = useCallback((task) => {

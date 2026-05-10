@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Plus, Download, Upload, X, BookOpen, PenLine, Dumbbell, Flag, Tag, Layers, GraduationCap, Pencil, FileUp, Calculator, Sparkles, CalendarDays } from 'lucide-react';
+import { Plus, Download, Upload, X, BookOpen, PenLine, Dumbbell, Flag, Tag, Layers, GraduationCap, Pencil, FileUp, Calculator, Sparkles, CalendarDays, Clock } from 'lucide-react';
 import { useAppContext } from '../../context/AppContext';
 import { ProgressBar } from '../ui/ProgressBar';
 import { gradeLabel } from '../../lib/constants';
@@ -28,7 +28,7 @@ export function Sidebar({ onClose }) {
     deleteCat, deleteCourse, openEditCourse, openGradeCalc,
     done, total, pct,
     exportData, importData,
-    setModal, aiOpen, setAiOpen,
+    setModal, aiOpen, setAiOpen, setView,
   } = useAppContext();
 
   const importRef = useRef();
@@ -166,6 +166,18 @@ export function Sidebar({ onClose }) {
             </span>
           </div>
         </div>
+      </section>
+
+      <Divider />
+
+      {/* ── HISTORY ── */}
+      <section style={{ padding: '24px 20px 8px' }}>
+        <SectionHeader label="HISTORY" />
+        <ActionButton
+          Icon={Clock}
+          label="Completed Tasks"
+          onClick={() => { setView('history'); onClose?.(); }}
+        />
       </section>
 
       <div style={{ height: 8 }} />

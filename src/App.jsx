@@ -13,6 +13,7 @@ import SyllabusConfirmModal from './components/SyllabusConfirmModal';
 import GradeCalculatorModal from './components/GradeCalculatorModal';
 import OnboardingOverlay from './components/OnboardingOverlay';
 import AIPanel from './components/AIPanel';
+import HistoryView from './components/HistoryView';
 
 export default function App() {
   const { ready, view, setView, modal, aiOpen, tasks, courses } = useAppContext();
@@ -101,6 +102,17 @@ export default function App() {
                     className="h-full"
                   >
                     <WeeklyView />
+                  </motion.div>
+                ) : view === 'history' ? (
+                  <motion.div
+                    key="history"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1,  x: 0  }}
+                    exit={{    opacity: 0,  x: 12  }}
+                    transition={{ duration: 0.18, ease: [0.4, 0, 0.2, 1] }}
+                    className="h-full"
+                  >
+                    <HistoryView />
                   </motion.div>
                 ) : (
                   <motion.div
