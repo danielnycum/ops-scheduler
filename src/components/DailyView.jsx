@@ -29,7 +29,7 @@ export default function DailyView() {
   const weekDates = getWeekDates();
 
   return (
-    <div className="max-w-2xl mx-auto w-full flex flex-col" style={{ minHeight: '100%' }}>
+    <div className="w-full flex flex-col" style={{ minHeight: '100%' }}>
       {/* Back to week — desktop only */}
       <button
         onClick={() => setView('weekly')}
