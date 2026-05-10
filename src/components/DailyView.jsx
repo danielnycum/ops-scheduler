@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Pencil, Trash2, AlertTriangle, ArrowLeft } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pencil, Trash2, AlertTriangle, ArrowLeft, Calendar } from 'lucide-react';
 import { useAppContext } from '../context/AppContext';
 import { Button } from './ui/Button';
 import { DAYS, SHORT_DAYS } from '../lib/constants';
@@ -339,33 +339,68 @@ function EmptyState({ day, filterActive, activeCat, onAdd }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-      className="text-center max-w-xs mx-auto"
+      style={{
+        maxWidth: 400,
+        width: '100%',
+        textAlign: 'center',
+        borderRadius: 16,
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(20,184,166,0.2)',
+        boxShadow: '0 0 40px rgba(20,184,166,0.06)',
+        padding: 48,
+      }}
     >
-      <div className="text-4xl mb-5 opacity-10 select-none">◫</div>
+      <div style={{
+        width: 80, height: 80,
+        margin: '0 auto 24px',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        borderRadius: 20,
+        background: 'rgba(20,184,166,0.08)',
+        border: '1px solid rgba(20,184,166,0.15)',
+        color: 'rgba(20,184,166,0.5)',
+      }}>
+        <Calendar size={36} />
+      </div>
 
       {filterActive && activeCat ? (
         <>
-          <p className="text-[13px] text-muted mb-1">
-            No <span style={{ color: activeCat.color }}>{activeCat.icon} {activeCat.label}</span> tasks on {day}
+          <p style={{ fontSize: 24, fontWeight: 700, color: 'var(--color-text)', marginBottom: 8, lineHeight: 1.2 }}>
+            No <span style={{ color: activeCat.color }}>{activeCat.icon} {activeCat.label}</span> tasks
           </p>
-          <p className="text-[11px] text-subtle mb-6">Clear the filter to see all tasks</p>
+          <p style={{ fontSize: 16, color: 'var(--color-subtle)', marginBottom: 32, lineHeight: 1.5 }}>
+            on {day} — clear the filter to see all tasks.
+          </p>
         </>
       ) : (
         <>
-          <p className="text-[13px] font-medium text-muted mb-1">{day} is clear</p>
-          <p className="text-[11px] text-subtle mb-6 leading-relaxed">
-            Add your first task to start building<br />your schedule.
+          <p style={{ fontSize: 24, fontWeight: 700, color: 'var(--color-text)', marginBottom: 8, lineHeight: 1.2 }}>
+            {day} is clear
+          </p>
+          <p style={{ fontSize: 16, color: 'var(--color-subtle)', marginBottom: 32, lineHeight: 1.5 }}>
+            Add your first task to start building your schedule.
           </p>
         </>
       )}
 
-      <Button variant="primary" onClick={onAdd}>
+      <button
+        onClick={onAdd}
+        style={{
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          padding: '12px 24px',
+          fontSize: 16, fontWeight: 600,
+          borderRadius: 9999,
+          background: 'linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%)',
+          color: 'white',
+          border: 'none',
+          cursor: 'pointer',
+          boxShadow: '0 2px 12px rgba(20,184,166,0.35)',
+          transition: 'opacity 0.15s, box-shadow 0.15s',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.opacity = '0.9'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(20,184,166,0.5)'; }}
+        onMouseLeave={e => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.boxShadow = '0 2px 12px rgba(20,184,166,0.35)'; }}
+      >
         + Add Task for {day}
-      </Button>
-
-      <p className="mt-4 text-[10px] uppercase tracking-[0.1em] text-disabled">
-        Shortcut: press N
-      </p>
+      </button>
     </motion.div>
   );
 }
